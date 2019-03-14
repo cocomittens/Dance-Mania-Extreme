@@ -6,9 +6,9 @@
 ## Functionality and MVPs
 
 In Reincarnation, players will be able to:
-  [] Generate a new life with random traits in a random place, time and occupation
-  [] Choose items, skills, relationships, life events etc. as time goes on
-  [] Affect the outcome of their life based on their choices
+  - [ ] Generate a new life with random traits in a random place, time and occupation
+  - [ ] Choose items, skills, relationships, life events etc. as time goes on
+  - [ ] Affect the outcome of their life based on their choices
 
 ## Architectures and Technologies
 
@@ -18,24 +18,24 @@ In Reincarnation, players will be able to:
 * Webpack to bundle all scripts into one
 
 ## Implementation Timeline
-Day 0:
-  [] Brainstorm ideas
-  [] Finish proposal
+**Day 0:**
+  - [ ] Brainstorm ideas
+  - [ ] Finish proposal
   
-Day 1:
-  [] Create skeleton/ basic logic of fundamental components
-  [] Make sure that webpack, React, and HTML5 Canvas are connected and functioning properly
+**Day 1:**
+  - [ ] Create skeleton/ basic logic of fundamental components
+  - [ ] Make sure that webpack, React, and HTML5 Canvas are connected and functioning properly
 
-Day 2:
-  [] Create basic content for components (possible actions, places, etc)
-  [] Create basic interface for rendering content
-  [] Implement random generation
+**Day 2:**
+  - [ ] Create basic content for components (possible actions, places, etc)
+  - [ ] Create basic interface for rendering content
+  - [ ] Implement random generation
   
-Weekend:
-  [] Create more content for components
-  [] Implement logic for choices/ possible actions a user can take
+**Weekend:**
+  - [ ] Create more content for components
+  - [ ] Implement logic for choices/ possible actions a user can take
 
-Day 3:
-  [] Touch up visuals and styling
-  [] Ensure a smooth, bug free experience
+**Day 3:**
+  - [ ] Touch up visuals and styling
+  - [ ] Ensure a smooth, bug free experience
   
