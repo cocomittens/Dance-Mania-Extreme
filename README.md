@@ -1,4 +1,4 @@
-# MyLife
+# Dance Mania Remix
 
 ## Background and Overview
 
