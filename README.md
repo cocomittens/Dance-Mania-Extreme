@@ -20,9 +20,9 @@
 **Day 1:**
   - [ ] Make sure that webpack and HTML5 Canvas are connected and functioning properly
   - [ ] Create all sprites used in game (even if placeholder), backgrounds and sample audio
-  - [ ] Implement controls/ ability to process keyboard input
 
 **Day 2:**
+  - [ ] Implement controls/ ability to process keyboard input
   - [ ] Create game logic/ win conditions
   
 **Day 3:**
