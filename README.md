@@ -4,7 +4,7 @@
 Dance Mania Extreme is a rhythm game
 
 ## Functionality and MVPs
-
+* 
 
 ## Architectures and Technologies
 
@@ -22,7 +22,7 @@ Dance Mania Extreme is a rhythm game
   - [ ] Create all sprites used in game (even if placeholder), backgrounds and sample audio
 
 **Day 2:**
-  - [ ] Implement controls/ ability to process keyboard input
+  - [ ] Implement controls/ ability to process keyboard input (WASD and arrow keys)
   - [ ] Create game logic/ win conditions
   
 **Day 3:**
