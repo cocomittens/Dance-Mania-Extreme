@@ -1,13 +1,16 @@
 # Dance Mania Extreme
 
 ## Background and Overview
-Dance Mania Extreme is a rhythm game
+`Dance Mania Extreme` is a classic rhythm game.
 
 ## Functionality and MVPs
-* 
+In Dance Mania Extreme, users will be able to
+- [ ] Choose a song
+- [ ] Receive a score based on hitting the right arrow at the right time
+- [ ] Receive a grade based on score received
+- [ ] Start, pause and quit the game
 
 ## Architectures and Technologies
-
 * Vanilla JavaScript for game logic
 * HTML5 Canvas for rendering
 * Webpack to bundle all scripts into one
