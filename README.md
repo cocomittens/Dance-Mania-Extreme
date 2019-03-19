@@ -1,7 +1,7 @@
-# Dance Mania Remix
+# Dance Mania Extreme
 
 ## Background and Overview
-
+Dance Mania Extreme is a rhythm game
 
 ## Functionality and MVPs
 
