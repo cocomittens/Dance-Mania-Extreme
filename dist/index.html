@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dance Mania Remix</title>
+    <script src="./bundle.js"></script>
+
+</head>
+<body>
+    
+    <canvas width="800" height="600" id="canvas"></canvas>
+    <script>
+        
+        const canvas = document.getElementById('canvas');
+        const c = canvas.getContext('2d');
+        
+        let right_arrow = new Image();
+        let left_arrow = new Image();
+        let up_arrow = new Image();
+        let down_arrow = new Image();
+        
+        right_arrow.src = "/Users/cgripens/Desktop/AppAcademy/dmr/Sprites/arrow_right.png";
+        left_arrow.src = "/Users/cgripens/Desktop/AppAcademy/dmr/Sprites/arrow_left.png";
+        up_arrow.src = "/Users/cgripens/Desktop/AppAcademy/dmr/Sprites/arrow_up.png";
+        down_arrow.src = "/Users/cgripens/Desktop/AppAcademy/dmr/Sprites/arrow_down.png";
+        right_arrow.onload = function () {
+            c.drawImage(right_arrow, 0, 0);
+        }
+        up_arrow.onload = function () {
+            c.drawImage(up_arrow, 100, 0);
+        }
+        left_arrow.onload = function () {
+            c.drawImage(left_arrow, 200, 0);
+        }
+        down_arrow.onload = function () {
+            c.drawImage(down_arrow, 300, 0);
+        }
+
+        
+    </script>
+
+</body>
+</html>
