@@ -6,11 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dance Mania Remix</title>
     <script src="./dist/bundle.js"></script>
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
 
 </head>
 <body>
-    
-    <canvas width="800" height="600" id="canvas"></canvas>
+    <div class="canvasContainer">
+    <canvas width="600" height="600" id="canvas"></canvas>
+    </div>
     <script>
         
         const canvas = document.getElementById('canvas');
@@ -26,16 +28,16 @@
         up_arrow.src = "/Users/cgripens/Desktop/AppAcademy/dmr/Sprites/arrow_up.png";
         down_arrow.src = "/Users/cgripens/Desktop/AppAcademy/dmr/Sprites/arrow_down.png";
         right_arrow.onload = function () {
-            c.drawImage(right_arrow, 0, 0);
+            c.drawImage(right_arrow, 100, 0);
         }
         up_arrow.onload = function () {
-            c.drawImage(up_arrow, 100, 0);
+            c.drawImage(up_arrow, 200, 0);
         }
         left_arrow.onload = function () {
-            c.drawImage(left_arrow, 200, 0);
+            c.drawImage(left_arrow, 300, 0);
         }
         down_arrow.onload = function () {
-            c.drawImage(down_arrow, 300, 0);
+            c.drawImage(down_arrow, 400, 0);
         }
 
         
