@@ -6,6 +6,19 @@ let leftPressed = false;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
+const body = document.getElementsByTagName('body')[0];
+let id;
+
+function gameLoop() {
+    // Animate stuff
+    id = requestAnimationFrame(gameLoop)
+}
+
+body.addEventListener('click', () => {
+    cancelAnimationFrame(id)
+})
+
+
 function handleInput(key, action) {
     const canvas = document.getElementById('canvas');
     const c = canvas.getContext('2d');
@@ -64,7 +77,6 @@ function handleInput(key, action) {
 }
 
 function keyDownHandler(e) {
-    
     switch(e.key){
         case "ArrowUp":
             upPressed = true;
