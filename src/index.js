@@ -45,7 +45,7 @@ down_arrow_active.src = "./sprites/arrow_down_active.png";
 // User Variables - customize these to change the image being scrolled, its
 // direction, and the speed.
 
-img.src = './sprites/arrow_down_note.png';
+img.src = './sprites/song_template.png';
 var CanvasXSize = 600;
 var CanvasYSize = 600;
 var speed = 2; // lower is faster
@@ -155,30 +155,32 @@ function draw() {
     ctx.drawImage(img, x, y, imgW, imgH);
 
     if (rightPressed) {
-        ctx.drawImage(right_arrow_active, 100, 0);
+        ctx.drawImage(right_arrow_active, 400, 0);
 
     } else {
-        ctx.drawImage(right_arrow, 100, 0);
+        ctx.drawImage(right_arrow, 400, 0);
     }
     if (upPressed) {
-        ctx.drawImage(up_arrow_active, 200, 0);
+        ctx.drawImage(up_arrow_active, 300, 0);
 
     } else {
-        ctx.drawImage(up_arrow, 200, 0);
-    }
-    if (leftPressed) {
-        ctx.drawImage(left_arrow_active, 300, 0);
-
-    } else {
-        ctx.drawImage(left_arrow, 300, 0);
+        ctx.drawImage(up_arrow, 300, 0);
     }
 
     if (downPressed) {
-        ctx.drawImage(down_arrow_active, 400, 0);
+        ctx.drawImage(down_arrow_active, 200, 0);
 
     } else {
-        ctx.drawImage(down_arrow, 400, 0);
+        ctx.drawImage(down_arrow, 200, 0);
     }
+    if (leftPressed) {
+        ctx.drawImage(left_arrow_active, 100, 0);
+
+    } else {
+        ctx.drawImage(left_arrow, 100, 0);
+    }
+
+  
 
 
 
