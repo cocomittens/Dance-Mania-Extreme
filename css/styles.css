@@ -1,4 +1,48 @@
+body {
+    font-family: Helvetica;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}  
+
 .canvasContainer {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    display: none;
 }
+
+.menuContainer {
+    width: 600px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-flow: row wrap;
+    background-color: lightcyan;
+}
+
+.button {
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    color: #FFF;
+    text-decoration: none;
+    background: linear-gradient(#1879BD, #084D79);
+    text-align: center;
+    font-size: 20px;
+    display: block;
+    border-radius: 10px;
+}
+.button:hover {
+    background: linear-gradient(#678834, #093905);
+}
+.button:active {
+    background: linear-gradient(#EB7723, #A80000);
+}
+
+.breaker{
+  display:block;
+  width:100%;
+  height:0;
+ }
