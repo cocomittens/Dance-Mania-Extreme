@@ -1,3 +1,83 @@
+let right = new Image();
+let left = new Image();
+let up = new Image();
+let down = new Image();
+
+right.src = "./sprites/arrow_right_note.png";
+left.src = "./sprites/arrow_left_note.png";
+up.src = "./sprites/arrow_up_note.png";
+down.src = "./sprites/arrow_down_note.png";
+
+let song = [
+    null, null, null, null,
+    null, null, null, null,
+    null, null, null, null,
+    null, null, null, null,
+    [left], null, [right], null,
+    [down], null, [up], null,
+    [right], null, [left], null,
+    [up], null, [down], null,
+    [left], null, [up], null
+];
+
+let dx = 1.5;
+let ctx;
+let notes = [];
+
+let CanvasXSize = 600;
+let CanvasYSize = 600;
+let speed = 100; // lower is faster
+let y = 600; // vertical offset
+
+let drawNote = (note) => {
+    if(note) {
+        let noteX;
+        if (note.src.includes('left')) noteX = 100;
+        if (note.src.includes('down')) noteX = 200;
+        if (note.src.includes('up')) noteX = 300;
+        if (note.src.includes('right')) noteX = 400;
+        notes.push({ img: note, x: noteX, y: 600 });
+    }
+
+    ctx = document.getElementById('canvas').getContext('2d');
+    return setInterval(() => draw(notes), speed);
+}
+
+function draw(notes) {
+    ctx.clearRect(0, 0, 600, 600); // clear the canvas
+    if (rightPressed) {
+        ctx.drawImage(right_arrow_active, 400, 0);
+
+    } else {
+        ctx.drawImage(right_arrow, 400, 0);
+    }
+    if (upPressed) {
+        ctx.drawImage(up_arrow_active, 300, 0);
+
+    } else {
+        ctx.drawImage(up_arrow, 300, 0);
+    }
+
+    if (downPressed) {
+        ctx.drawImage(down_arrow_active, 200, 0);
+
+    } else {
+        ctx.drawImage(down_arrow, 200, 0);
+    }
+    if (leftPressed) {
+        ctx.drawImage(left_arrow_active, 100, 0);
+
+    } else {
+        ctx.drawImage(left_arrow, 100, 0);
+    }
+
+    if(notes.length) {
+        notes.forEach(note => {
+            ctx.drawImage(note.img, note.x, note.y);
+            note.y -= dx;
+        });
+    }
+}
 
 document.querySelectorAll('.button')[0].addEventListener('click', function (event) {
     let menu = document.getElementsByClassName('menuContainer')[0];
@@ -6,6 +86,16 @@ document.querySelectorAll('.button')[0].addEventListener('click', function (even
     canvas.style.display = 'block';
     let audio = new Audio("./songs/ppp.mp3");
     audio.play();
+    let bpm = 300;
+    for(let i = 0; i < song.length; i++) {
+        let note = song[i];
+        if (note) {
+            setTimeout(() => drawNote(note[0]), i * bpm);
+        } else {
+            setTimeout(() => drawNote(null), i * bpm);
+
+        }
+    }
 
 });
 
@@ -21,9 +111,6 @@ if(body) {
         cancelAnimationFrame(id)
     })
 }
-
-
-var img = new Image();
 
 let right_arrow = new Image();
 let left_arrow = new Image();
@@ -45,26 +132,6 @@ left_arrow_active.src = "./sprites/arrow_left_active.png";
 up_arrow_active.src = "./sprites/arrow_up_active.png";
 down_arrow_active.src = "./sprites/arrow_down_active.png";
 
-// User Variables - customize these to change the image being scrolled, its
-// direction, and the speed.
-
-img.src = './sprites/song_template.png';
-var CanvasXSize = 600;
-var CanvasYSize = 600;
-var speed = 10; // lower is faster
-var scale = 1.05;
-var y = 600; // vertical offset
-
-// Main program
-
-var dx = 1.5;
-var imgW;
-var imgH;
-var x = 0;
-var clearX;
-var clearY;
-var ctx;
-
 let upPressed = false;
 let downPressed = false;
 let rightPressed = false;
@@ -72,36 +139,6 @@ let leftPressed = false;
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-
-img.onload = function () {
-    imgW = img.width * scale;
-    imgH = img.height * scale;
-
-    if (imgW > CanvasXSize) {
-        // image larger than canvas
-        x = CanvasXSize - imgW;
-    }
-    if (imgW > CanvasXSize) {
-        // image width larger than canvas
-        clearX = imgW;
-    } else {
-        clearX = CanvasXSize;
-    }
-
-    if (imgH > CanvasYSize) {
-        // image height larger than canvas
-        clearY = imgH;
-    } else {
-        clearY = CanvasYSize;
-    }
-
-    // get canvas context
-    ctx = document.getElementById('canvas').getContext('2d');
-
-    // set refresh rate
-    return setInterval(draw, speed);
-}
-
 
 function keyDownHandler(e) {
     switch (e.key) {
@@ -135,58 +172,4 @@ function keyUpHandler(e) {
             leftPressed = false;
             break;
     }
-}
-
-
-function draw() {
-    ctx.clearRect(0, 0, clearX, clearY); // clear the canvas
-    
-    // reset, start from beginning
-    if (x > CanvasXSize) {
-        x = -imgW + x;
-    }
-    // draw additional image1
-    if (x > 0) {
-        ctx.drawImage(img, -imgW + x, y, imgW, imgH);
-    }
-    // draw additional image2
-    if (x - imgW > 0) {
-        ctx.drawImage(img, -imgW * 2 + x, y, imgW, imgH);
-    }
-    
-    // draw image
-    
-    if (rightPressed) {
-        ctx.drawImage(right_arrow_active, 400, 0);
-        
-    } else {
-        ctx.drawImage(right_arrow, 400, 0);
-    }
-    if (upPressed) {
-        ctx.drawImage(up_arrow_active, 300, 0);
-        
-    } else {
-        ctx.drawImage(up_arrow, 300, 0);
-    }
-    
-    if (downPressed) {
-        ctx.drawImage(down_arrow_active, 200, 0);
-        
-    } else {
-        ctx.drawImage(down_arrow, 200, 0);
-    }
-    if (leftPressed) {
-        ctx.drawImage(left_arrow_active, 100, 0);
-        
-    } else {
-        ctx.drawImage(left_arrow, 100, 0);
-    }
-    
-    ctx.drawImage(img, x, y, imgW, imgH);
-    
-
-
-
-    // amount to move
-    y -= dx;
 }
