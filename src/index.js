@@ -4,6 +4,9 @@ document.querySelectorAll('.button')[0].addEventListener('click', function (even
     let canvas = document.getElementsByClassName('canvasContainer')[0];
     menu.style.display = 'none';
     canvas.style.display = 'block';
+    let audio = new Audio("./songs/ppp.mp3");
+    audio.play();
+
 });
 
 const body = document.getElementsByTagName('body')[0];
@@ -48,13 +51,13 @@ down_arrow_active.src = "./sprites/arrow_down_active.png";
 img.src = './sprites/song_template.png';
 var CanvasXSize = 600;
 var CanvasYSize = 600;
-var speed = 2; // lower is faster
+var speed = 10; // lower is faster
 var scale = 1.05;
 var y = 600; // vertical offset
 
 // Main program
 
-var dx = 0.75;
+var dx = 1.5;
 var imgW;
 var imgH;
 var x = 0;
@@ -152,35 +155,35 @@ function draw() {
     }
     
     // draw image
-    ctx.drawImage(img, x, y, imgW, imgH);
-
+    
     if (rightPressed) {
         ctx.drawImage(right_arrow_active, 400, 0);
-
+        
     } else {
         ctx.drawImage(right_arrow, 400, 0);
     }
     if (upPressed) {
         ctx.drawImage(up_arrow_active, 300, 0);
-
+        
     } else {
         ctx.drawImage(up_arrow, 300, 0);
     }
-
+    
     if (downPressed) {
         ctx.drawImage(down_arrow_active, 200, 0);
-
+        
     } else {
         ctx.drawImage(down_arrow, 200, 0);
     }
     if (leftPressed) {
         ctx.drawImage(left_arrow_active, 100, 0);
-
+        
     } else {
         ctx.drawImage(left_arrow, 100, 0);
     }
-
-  
+    
+    ctx.drawImage(img, x, y, imgW, imgH);
+    
 
 
 
