@@ -17,26 +17,84 @@ let song = [
     [down], null, [up], null,
     [right], null, [left], null,
     [up], null, [down], null,
-    [left], null, [up], null
+    [left], null, [up], null,
+    [down], null, [right], null,
+    [left], null, [down], null,
+    [right], null, [up], null,
+    [right], null, [down], null,
+    [up], null, [left], null,
+    [right], null, [up], null,
+    [left], null, [down], null,
+    [left], null, [down], null,
+    [up], null, [right], null,
+    [up], null, [down], null,
+    [left], null, null, [right],
+    [down], null, [up], null,
+    [right], null, [left], null,
+    [right], null, [up], null,
+    [down], null, null, [up],
+    [right], null, [up], null,
+    [down], null, [left], null,
+    [down], null, [up], null,
+    [right], null, null, [left],
+    [up], null, [right], null,
+    [left], null, [down], null,
+    [left], null, [right], null,
+    [up], null, null, [down],
+    [left, right], null, [left], [right],
+    [up], [down], [up], [down],
+    [right], null, [left], null,
+    [right], [left], [down], [up],
+    [left, right], null, [right], [down],
+    [left], [up], [left], [up],
+    [down], null, [right], null,
+    [down], [right], [up], [left],
+    [up], null, [down], null,
+    [left], [up, down], [right], [up, down],
+    [down], null, [up], null,
+    [right], [up, down], [left], [up, down],
+    [right], null, [left], null,
+    [down], [left, right], [up], [left, right],
+    [left], null, [right], null,
+    [left, right], null, null, null,
+    [left], null, [right], null,
+    [down], null, [up], null,
+    [down], null, [right], null,
+    [left], null, null, [right],
+    [down], null, [up], null,
+    [right], null, [left], null,
+    [right], null, [up], null,
+    [down], null, null, [up],
+    [right], [down], [up], [left],
+    [right], [up], [left], [down],
+    [left], [up], [down], [right],
+    [left], [down], [right], [up],
+    [right], [up], [down], [left],
+    [right], [left], [up], [down],
+    [left], [down], [up], [right],
+    [left], [right], [down], [left, right]
+
 ];
 
-let dx = 1.5;
+let dx = .5;
 let ctx;
 let notes = [];
 
 let CanvasXSize = 600;
 let CanvasYSize = 600;
-let speed = 100; // lower is faster
+let speed = 5; // lower is faster
 let y = 600; // vertical offset
 
-let drawNote = (note) => {
-    if(note) {
+let drawNote = (beat) => {
+    if(beat) {
         let noteX;
-        if (note.src.includes('left')) noteX = 100;
-        if (note.src.includes('down')) noteX = 200;
-        if (note.src.includes('up')) noteX = 300;
-        if (note.src.includes('right')) noteX = 400;
-        notes.push({ img: note, x: noteX, y: 600 });
+            beat.forEach(note => {
+                if (note.src.includes('left')) noteX = 100;
+                if (note.src.includes('down')) noteX = 200;
+                if (note.src.includes('up')) noteX = 300;
+                if (note.src.includes('right')) noteX = 400;
+                notes.push({ img: note, x: noteX, y: 600 });
+            })
     }
 
     ctx = document.getElementById('canvas').getContext('2d');
@@ -86,15 +144,13 @@ document.querySelectorAll('.button')[0].addEventListener('click', function (even
     canvas.style.display = 'block';
     let audio = new Audio("./songs/ppp.mp3");
     audio.play();
-    let bpm = 300;
+    let bpm = 450;
+    drawNote([]);
     for(let i = 0; i < song.length; i++) {
-        let note = song[i];
-        if (note) {
-            setTimeout(() => drawNote(note[0]), i * bpm);
-        } else {
-            setTimeout(() => drawNote(null), i * bpm);
-
-        }
+        let beat = song[i];
+        if (beat) {
+            setTimeout(() => drawNote(beat), i * bpm);
+        } 
     }
 
 });
