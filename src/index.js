@@ -76,7 +76,7 @@ let song = [
 
 ];
 
-let dx = .5;
+let dx = 1;
 let ctx;
 let notes = [];
 
@@ -84,6 +84,7 @@ let CanvasXSize = 600;
 let CanvasYSize = 600;
 let speed = 5; // lower is faster
 let y = 600; // vertical offset
+let run;
 
 let drawNote = (beat) => {
     if(beat) {
@@ -98,7 +99,8 @@ let drawNote = (beat) => {
     }
 
     ctx = document.getElementById('canvas').getContext('2d');
-    return setInterval(() => draw(notes), speed);
+    clearInterval(run);
+    run = setInterval(() => draw(notes), speed);
 }
 
 function draw(notes) {
@@ -131,6 +133,7 @@ function draw(notes) {
 
     if(notes.length) {
         notes.forEach(note => {
+            // console.log('run it')
             ctx.drawImage(note.img, note.x, note.y);
             note.y -= dx;
         });
