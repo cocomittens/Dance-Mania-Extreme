@@ -79,6 +79,7 @@ let song = [
 let dx = 1;
 let ctx;
 let notes = [];
+let combo = 0;
 
 let CanvasXSize = 600;
 let CanvasYSize = 600;
@@ -169,14 +170,27 @@ function draw(notes) {
                 if (note.y <= 10) note.score = 'Perfect!';
             }
 
-            if (note.y < 0 && !note.score) note.score = 'Miss';
-            if (note.score && note.displayed <= 75) {
-                ctx.fillText(note.score, 500, 100);
+            if (note.y < 0 && !note.score) {
+                note.score = 'Miss';
+                combo = 0;
+            }
+
+            if (note.score && !note.displayed) {
+                if (note.score == 'Good' || note.score == 'Perfect!') combo++;
+                else combo = 0;
+            }
+
+            // Display score for 70 frames
+            if (note.score && note.displayed <= 70) {
+                ctx.fillText(combo, 500, 100);
                 note.displayed++;
             }
+
+
             note.y -= dx;
         });
     }
+    ctx.fillText(combo, 500, 200);
 }
 
 document.querySelectorAll('.button')[0].addEventListener('click', function (event) {
@@ -201,7 +215,6 @@ const body = document.getElementsByTagName('body')[0];
 let id;
 
 function gameLoop() {
-    // Animate stuff
     id = requestAnimationFrame(gameLoop)
 }
 if(body) {
