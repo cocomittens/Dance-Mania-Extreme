@@ -182,7 +182,7 @@ function draw(notes) {
 
             // Display score for 70 frames
             if (note.score && note.displayed <= 70) {
-                ctx.fillText(combo, 500, 100);
+                ctx.fillText(note.score, 500, 100);
                 note.displayed++;
             }
 
@@ -190,7 +190,8 @@ function draw(notes) {
             note.y -= dx;
         });
     }
-    ctx.fillText(combo, 500, 200);
+    let comboText = `combo: ${combo}`;
+    ctx.fillText(comboText, 470, 150);
 }
 
 document.querySelectorAll('.button')[0].addEventListener('click', function (event) {
@@ -208,7 +209,6 @@ document.querySelectorAll('.button')[0].addEventListener('click', function (even
             setTimeout(() => drawNote(beat), i * bpm);
         } 
     }
-
 });
 
 const body = document.getElementsByTagName('body')[0];

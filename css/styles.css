@@ -3,6 +3,9 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    background: url('../backgrounds/ppp_bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }  
 
 .canvasContainer {
@@ -10,11 +13,15 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     display: none;
+    background: rgba(255, 255, 255, .5)
 }
 
 .menuContainer {
-    width: 600px;
-    height: 600px;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -39,10 +46,10 @@ body {
     display: block;
     border-radius: 10px;
 }
+
 .button:hover {
     background: linear-gradient(#444, #333);
 }
-
 
 .breaker{
   display:block;
