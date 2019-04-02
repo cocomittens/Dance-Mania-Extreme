@@ -82,7 +82,7 @@ let notes = [];
 
 let CanvasXSize = 600;
 let CanvasYSize = 600;
-let speed = 5; // lower is faster
+let speed = 1; // lower is faster
 let y = 600; // vertical offset
 let run;
 
@@ -94,7 +94,12 @@ let drawNote = (beat) => {
                 if (note.src.includes('down')) noteX = 200;
                 if (note.src.includes('up')) noteX = 300;
                 if (note.src.includes('right')) noteX = 400;
-                notes.push({ img: note, x: noteX, y: 600 });
+                notes.push({ img: note, 
+                    x: noteX, 
+                    y: 600, 
+                    score: null,
+                    displayed: 0
+                 });
             })
     }
 
@@ -104,6 +109,7 @@ let drawNote = (beat) => {
 }
 
 function draw(notes) {
+    ctx.font = "30px Helvetica";
     ctx.clearRect(0, 0, 600, 600); // clear the canvas
     if (rightPressed) {
         ctx.drawImage(right_arrow_active, 400, 0);
@@ -133,8 +139,41 @@ function draw(notes) {
 
     if(notes.length) {
         notes.forEach(note => {
-            // console.log('run it')
             ctx.drawImage(note.img, note.x, note.y);
+
+            if(note.x === 100 && !note.score && leftPressed) {
+                if(note.y <= 30 && note.y >= 25) note.score = 'Bad';
+                if(note.y <= 25 && note.y >= 20) note.score = 'OK';
+                if (note.y <= 20 && note.y >= 10) note.score = 'Good';
+                if (note.y <= 10) note.score = 'Perfect!';
+            }
+
+            if (note.x === 200 && !note.score && downPressed) {
+                if (note.y <= 30 && note.y >= 25) note.score = 'Bad';
+                if (note.y <= 25 && note.y >= 20) note.score = 'OK';
+                if (note.y <= 20 && note.y >= 10) note.score = 'Good';
+                if (note.y <= 10) note.score = 'Perfect!';
+            }
+
+            if (note.x === 300 && !note.score && upPressed) {
+                if (note.y <= 30 && note.y >= 25) note.score = 'Bad';
+                if (note.y <= 25 && note.y >= 20) note.score = 'OK';
+                if (note.y <= 20 && note.y >= 10) note.score = 'Good';
+                if (note.y <= 10) note.score = 'Perfect!';
+            }
+
+            if (note.x === 400 && !note.score && rightPressed) {
+                if (note.y <= 30 && note.y >= 25) note.score = 'Bad';
+                if (note.y <= 25 && note.y >= 20) note.score = 'OK';
+                if (note.y <= 20 && note.y >= 10) note.score = 'Good';
+                if (note.y <= 10) note.score = 'Perfect!';
+            }
+
+            if (note.y < 0 && !note.score) note.score = 'Miss';
+            if (note.score && note.displayed <= 75) {
+                ctx.fillText(note.score, 500, 100);
+                note.displayed++;
+            }
             note.y -= dx;
         });
     }
@@ -147,7 +186,7 @@ document.querySelectorAll('.button')[0].addEventListener('click', function (even
     canvas.style.display = 'block';
     let audio = new Audio("./songs/ppp.mp3");
     audio.play();
-    let bpm = 450;
+    let bpm = 375;
     drawNote([]);
     for(let i = 0; i < song.length; i++) {
         let beat = song[i];
@@ -203,15 +242,19 @@ function keyDownHandler(e) {
     switch (e.key) {
         case "ArrowUp":
             upPressed = true;
+            setTimeout(() => keyUpHandler(e), 100);
             break;
         case "ArrowDown":
             downPressed = true;
+            setTimeout(() => keyUpHandler(e), 100);
             break;
         case "ArrowRight":
             rightPressed = true;
+            setTimeout(() => keyUpHandler(e), 100);
             break;
         case "ArrowLeft":
             leftPressed = true;
+            setTimeout(() => keyUpHandler(e), 100);
             break;
     }
 }
