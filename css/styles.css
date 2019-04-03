@@ -7,9 +7,6 @@ body {
     background-size: cover;
 }  
 
-.logo {
-}
-
 .canvasContainer {
     display: flex;
     justify-content: center;
@@ -31,12 +28,10 @@ body {
     background: none;
 }
 
-.menuContainer h1 {
-    color: #fff;
-    font-size: 50px;
-    -webkit-text-stroke-width: 1px;
-   -webkit-text-stroke-color: black;
+.menuBtns a {
+    margin: 20px;
 }
+
 
 .backgroundVideo {
     z-index: -1;
