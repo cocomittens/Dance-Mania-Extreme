@@ -194,7 +194,9 @@ function draw(notes) {
     ctx.fillText(comboText, 470, 150);
 }
 
-document.querySelectorAll('.button')[0].addEventListener('click', function (event) {
+
+
+document.getElementById('startBtn').addEventListener('click', function (event) {
     let menu = document.getElementsByClassName('menuContainer')[0];
     let canvas = document.getElementsByClassName('canvasContainer')[0];
     menu.style.display = 'none';
@@ -210,6 +212,8 @@ document.querySelectorAll('.button')[0].addEventListener('click', function (even
         } 
     }
 });
+
+
 
 const body = document.getElementsByTagName('body')[0];
 let id;

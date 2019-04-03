@@ -1,0 +1,64 @@
+.circle {
+  position: absolute;
+  top: 50vh;
+  right: 0;
+  width: 30em;
+  height: 80px;
+  transition: width 0.3s, height 0.3s, transform 0.3s;
+  transform-origin: top right;
+}
+
+body {
+    width: 100vw;
+    overflow: hidden;
+}
+
+
+
+.c-1 {
+  background: lightcyan;
+  transform: translate(60px, 160px);
+}
+
+.c-2 {
+  background: lightblue;
+  transform: translate(30px, 80px);
+
+}
+
+.c-3 {
+  background: lightcyan;
+  transform: translate(0, 0);
+}
+
+.c-4 {
+  background: lightblue;
+  transform: translate(30px, -80px);
+}
+
+.c-5 {
+  background: lightcyan;
+  transform: translate(60px, -160px);
+}
+
+.top {
+  background: orange;
+  transform: translate(60px, -160px);
+}
+
+.active {
+    background: lightgoldenrodyellow;
+}
+
+.bottom {
+  background: red;
+  transform: translate(60px, 160px);
+}
+
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}

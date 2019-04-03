@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dance Mania Extreme</title>
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Dance Mania eXtreme</title>
+    <link id="stylesheet" rel="stylesheet" href="./css/styles.css" type="text/css">
 
 </head>
 <body>
@@ -19,15 +19,106 @@
 </audio>
 
 <img id="menuAudioBtn" src="./sprites/mute.png" onclick="document.getElementById('menuAudio').pause()" />
-
-        <h1>Dance Mania Extreme</h1>
+        <h1>Dance Mania eXtreme</h1>
         <p class=breaker></p>
-        <a href="#" class="button" onclick="document.getElementById('menuAudio').pause()" >Start Game</a>
+        <a href="#" id="startBtn" class="button" onclick="document.getElementById('menuAudio').pause()" >Start Game</a>
+        <p class=breaker></p>
+        <a href="#" id="songBtn" class="button" onclick="">Songs</a>
+
 </div>
     <div class="canvasContainer">
     <canvas width="600" height="600" id="canvas"></canvas>
     </div>
+
+    <div class="songsContainer">
+
+
+
+
+<div id="nav" class="wrapcircles">
+    <div class="circle c-1"><span><a class="link" href="#">1</a></span></div>
+    <div class="circle c-2"><span><a class="link" href="#">2</a></span></div>
+    <div class="circle c-3 active"><span><a class="link" href="#">3</a></span></div>
+    <div class="circle c-4"><span><a class="link" href="#">4</a></span></div>
+    <div class="circle c-5"><span><a class="link">5</a></span></div>
+</div>
+        
+    </div>
     <script src="./dist/bundle.js"></script>
 
+    <script>
+        let songsList = ['c-1', 'c-2', 'c-3', 'c-4', 'c-5'];
+        document.getElementById('songBtn').addEventListener('click', function (event) {
+        let menu = document.getElementsByClassName('menuContainer')[0];
+        let songs = document.getElementsByClassName('songsContainer')[0];
+        menu.style.display = 'none';
+        songs.style.display = 'block';
+
+        document.getElementById('stylesheet').href = './css/songs.css';
+
+        document.addEventListener("keydown", songsDownHandler, false);
+        function songsDownHandler(e) {
+            if (e.key === "ArrowLeft") {
+                let foundActive = false;
+                for (let i=0; i< songsList.length; i++) {
+                    
+                    let curr = document.getElementsByClassName(songsList[i])[0];
+                    let next = document.getElementsByClassName(songsList[i+1])[0];
+
+                    let currPos = window.getComputedStyle(curr, null).getPropertyValue("transform");
+                    var values = currPos.split('(')[1],
+                        values = values.split(')')[0],
+                        values = values.split(',');
+                    let currX = parseInt(values[4].slice(1));
+                    let currY = parseInt(values[5]);
+                    if (i === 0) curr.style. transform = `translate(${60}px, ${-160}px)`;
+                    else {let newPos;
+                    newPos = (foundActive) ? `translate(${currX - 30}px, ${currY + 80}px)` : `translate(${currX + 30}px, ${currY + 80}px)`
+                    curr.style.transform = newPos;}
+                    if (curr.classList.contains('active') && !foundActive){
+                        foundActive = true;
+                        curr.classList.remove('active');
+                        next.classList.add('active');
+                    }
+                    
+                }
+                songsList.push(songsList.shift());
+            }
+
+
+            if (e.key === "ArrowRight") {
+                let foundActive = false;
+                for (let i = 0; i < songsList.length; i++) {
+
+                    let curr = document.getElementsByClassName(songsList[i])[0];
+                    let next = document.getElementsByClassName(songsList[i - 1])[0];
+
+                    let currPos = window.getComputedStyle(curr, null).getPropertyValue("transform");
+                    var values = currPos.split('(')[1],
+                        values = values.split(')')[0],
+                        values = values.split(',');
+                    let currX = parseInt(values[4].slice(1));
+                    let currY = parseInt(values[5]);
+                    if (curr.classList.contains('active') && !foundActive) {
+                        foundActive = true;
+                        curr.classList.remove('active');
+                        next.classList.add('active');
+                    }
+                    
+                    if (i === 4) curr.style.transform = `translate(${60}px, ${160}px)`;
+                    else {
+                        let newPos;
+                        newPos = foundActive ? `translate(${currX + 30}px, ${currY - 80}px)` : `translate(${currX - 30}px, ${currY - 80}px)`;
+                        curr.style.transform = newPos;
+                    }
+                }
+                songsList.unshift(songsList.pop());
+            }
+
+        }
+
+    });
+        
+    </script>
 </body>
 </html>
