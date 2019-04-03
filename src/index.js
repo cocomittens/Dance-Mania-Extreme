@@ -292,26 +292,26 @@ function draw(notes) {
 
             // Display score for 70 frames
             if (note.score && note.displayed <= 70) {
-                let color;
+                let score = new Image();
+                
                 switch (note.score) {
 					case 'Miss':
-                        color = '#FA887B';
+                        score.src = './sprites/miss.png';
 						break;
 					case 'Bad':
-                        color = '#CCABDA';
+                        score.src = './sprites/bad.png';
 						break;
 					case 'OK':
-                        color = '#FFDD94';
+                        score.src = './sprites/ok.png';
 						break;
 					case 'Good':
-                        color = '#D0E6A5';
+                        score.src = './sprites/great.png';
 						break;
 					case 'Perfect!':
-                        color = '#85E3CE';
+                        score.src = './sprites/perfect.png';
 						break;
 				}
-                ctx.fillStyle = color;
-                ctx.fillText(note.score, 250, 150);
+                ctx.drawImage(score, 250, 150);
                 note.displayed++;
 
             }
@@ -322,10 +322,9 @@ function draw(notes) {
     if (combo >= 2) {
         let comboText = `${combo} combo`;
         ctx.fillStyle = '#fff';
-
-
-        ctx.fillText(comboText, 235, 200);
-
+        ctx.fillText(comboText, 260, 225);
+        ctx.fillStyle = '#000';
+        ctx.strokeText(comboText, 260, 225);
 
     }
 }
