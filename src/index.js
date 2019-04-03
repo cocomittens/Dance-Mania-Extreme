@@ -1,3 +1,34 @@
+import { songsDownHandler} from './songs.js';
+
+document.getElementById('songBtn').addEventListener('click', function (event) {
+    let menu = document.getElementsByClassName('menuContainer')[0];
+    let songs = document.getElementsByClassName('songsContainer')[0];
+    menu.style.display = 'none';
+    songs.style.display = 'block';
+    document.getElementById('stylesheet').href = './css/songs.css';
+    document.addEventListener("keydown", songsDownHandler, false);
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            document.getElementById('stylesheet').href = './css/styles.css';
+
+            let menu = document.getElementsByClassName('songsContainer')[0];
+            let canvas = document.getElementsByClassName('canvasContainer')[0];
+            menu.style.display = 'none';
+            canvas.style.display = 'block';
+            let audio = new Audio("./songs/ppp.mp3");
+            audio.play();
+            let bpm = 375;
+            drawNote([]);
+            for (let i = 0; i < song.length; i++) {
+                let beat = song[i];
+                if (beat) {
+                    setTimeout(() => drawNote(beat), i * bpm);
+                }
+            }
+        }
+    });
+});
+
 let right = new Image();
 let left = new Image();
 let up = new Image();
@@ -80,9 +111,6 @@ let dx = 1;
 let ctx;
 let notes = [];
 let combo = 0;
-
-let CanvasXSize = 600;
-let CanvasYSize = 600;
 let speed = 1; // lower is faster
 let y = 600; // vertical offset
 let run;
@@ -97,7 +125,7 @@ let drawNote = (beat) => {
                 if (note.src.includes('right')) noteX = 400;
                 notes.push({ img: note, 
                     x: noteX, 
-                    y: 600, 
+                    y, 
                     score: null,
                     displayed: 0
                  });
@@ -178,8 +206,29 @@ function draw(notes) {
 
             // Display score for 70 frames
             if (note.score && note.displayed <= 70) {
+                let color;
+                switch (note.score) {
+					case 'Miss':
+                        color = '#FA887B';
+						break;
+					case 'Bad':
+                        color = '#CCABDA';
+						break;
+					case 'OK':
+                        color = '#FFDD94';
+						break;
+					case 'Good':
+                        color = '#D0E6A5';
+						break;
+					case 'Perfect!':
+                        color = '#85E3CE';
+						break;
+				}
+                ctx.fillStyle = color;
                 ctx.fillText(note.score, 250, 150);
                 note.displayed++;
+                ctx.fillStyle = '#000';
+
             }
 
             note.y -= dx;
@@ -214,6 +263,7 @@ let id;
 function gameLoop() {
     id = requestAnimationFrame(gameLoop)
 }
+
 if(body) {
     body.addEventListener('click', () => {
         cancelAnimationFrame(id)
