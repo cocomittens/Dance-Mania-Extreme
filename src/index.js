@@ -114,7 +114,6 @@ function draw(notes) {
     ctx.clearRect(0, 0, 600, 600); // clear the canvas
     if (rightPressed) {
         ctx.drawImage(right_arrow_active, 400, 0);
-
     } else {
         ctx.drawImage(right_arrow, 400, 0);
     }
@@ -124,16 +123,13 @@ function draw(notes) {
     } else {
         ctx.drawImage(up_arrow, 300, 0);
     }
-
     if (downPressed) {
         ctx.drawImage(down_arrow_active, 200, 0);
-
     } else {
         ctx.drawImage(down_arrow, 200, 0);
     }
     if (leftPressed) {
         ctx.drawImage(left_arrow_active, 100, 0);
-
     } else {
         ctx.drawImage(left_arrow, 100, 0);
     }
@@ -182,19 +178,18 @@ function draw(notes) {
 
             // Display score for 70 frames
             if (note.score && note.displayed <= 70) {
-                ctx.fillText(note.score, 500, 100);
+                ctx.fillText(note.score, 250, 150);
                 note.displayed++;
             }
-
 
             note.y -= dx;
         });
     }
-    let comboText = `combo: ${combo}`;
-    ctx.fillText(comboText, 470, 150);
+    if (combo >= 2) {
+        let comboText = `${combo} combo`;
+        ctx.fillText(comboText, 235, 200);
+    }
 }
-
-
 
 document.getElementById('startBtn').addEventListener('click', function (event) {
     let menu = document.getElementsByClassName('menuContainer')[0];
@@ -212,8 +207,6 @@ document.getElementById('startBtn').addEventListener('click', function (event) {
         } 
     }
 });
-
-
 
 const body = document.getElementsByTagName('body')[0];
 let id;
