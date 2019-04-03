@@ -1,43 +1,17 @@
 import { songsDownHandler} from './songs.js';
 
-document.getElementById('songBtn').addEventListener('click', function (event) {
-    let menu = document.getElementsByClassName('menuContainer')[0];
-    let songs = document.getElementsByClassName('songsContainer')[0];
-    menu.style.display = 'none';
-    songs.style.display = 'block';
-    document.getElementById('stylesheet').href = './css/songs.css';
-    document.addEventListener("keydown", songsDownHandler, false);
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-            document.getElementById('stylesheet').href = './css/styles.css';
-
-            let menu = document.getElementsByClassName('songsContainer')[0];
-            let canvas = document.getElementsByClassName('canvasContainer')[0];
-            menu.style.display = 'none';
-            canvas.style.display = 'block';
-            let audio = new Audio("./songs/ppp.mp3");
-            audio.play();
-            let bpm = 375;
-            drawNote([]);
-            for (let i = 0; i < song.length; i++) {
-                let beat = song[i];
-                if (beat) {
-                    setTimeout(() => drawNote(beat), i * bpm);
-                }
-            }
-        }
-    });
-});
-
 let right = new Image();
 let left = new Image();
 let up = new Image();
 let down = new Image();
 
-right.src = "./sprites/arrow_right_note.png";
-left.src = "./sprites/arrow_left_note.png";
-up.src = "./sprites/arrow_up_note.png";
-down.src = "./sprites/arrow_down_note.png";
+right.src = './sprites/arrow_right_note.png';
+left.src = './sprites/arrow_left_note.png';
+up.src = './sprites/arrow_up_note.png';
+down.src = './sprites/arrow_down_note.png';
+const body = document.getElementsByTagName('body')[0];
+let id;
+
 
 let song = [
     null, null, null, null,
@@ -104,8 +78,72 @@ let song = [
     [right], [left], [up], [down],
     [left], [down], [up], [right],
     [left], [right], [down], [left, right]
-
 ];
+
+let song2 = [
+    null, null, null, null,
+    null, null, null, null,
+    null, null, null, null,
+    null, null, null, null,
+    [up], null, null, null,
+    [down], null, null, null,
+    [up], null, null, null,
+    [down], null, null, null,
+    [right], null, [right], null,
+    [down], null, [down], null,
+    [right], null, [right], null,
+    [left], null, [left], null,
+    [right], [right], [right], null,
+    [left], [left], [left], null,
+    [right], null, [left], null,
+    [left, right], null, null, null,
+    [up], null, [down], null,
+    [up], null, [down], null,
+    [up], null, [down], null,
+    [up], [up], [down], [down],
+    [up], [down], [up], null,
+    [down], null, [down], null
+];
+
+
+document.getElementById('songBtn').addEventListener('click', function(event) {
+	let menu = document.getElementsByClassName('menuContainer')[0];
+    let songs = document.getElementsByClassName('songsContainer')[0];
+	menu.style.display = 'none';
+	songs.style.display = 'block';
+	document.getElementById('stylesheet').href = './css/songs.css';
+	document.addEventListener('keydown', songsDownHandler, false);
+	document.addEventListener('keydown', function(e) {
+		if (e.key === 'Enter') {
+			document.getElementById('stylesheet').href = './css/styles.css';
+            let active = document.getElementsByClassName('active')[0].classList.contains('c-3');
+			let menu = document.getElementsByClassName('songsContainer')[0];
+			let canvas = document.getElementsByClassName('canvasContainer')[0];
+            let audio;
+			menu.style.display = 'none';
+            if (active) {
+                audio = new Audio('./songs/ppp.mp3');
+                body.style.backgroundImage = "url('./backgrounds/ppp_bg.png')";
+            } else {
+                audio = new Audio('./songs/www.ogg');
+                body.style.backgroundImage = `url('./backgrounds/abstract.mp4')`;
+            }
+            canvas.style.display = 'block';
+
+			audio.play();
+			let bpm = 375;
+			drawNote([]);
+			for (let i = 0; i < song.length; i++) {
+				let beat = song[i];
+				if (beat) {
+					setTimeout(() => drawNote(beat), i * bpm);
+				}
+			}
+		}
+	});
+});
+
+
 
 let dx = 1;
 let ctx;
@@ -227,7 +265,7 @@ function draw(notes) {
                 ctx.fillStyle = color;
                 ctx.fillText(note.score, 250, 150);
                 note.displayed++;
-                ctx.fillStyle = '#000';
+                ctx.fillStyle = '#fff';
 
             }
 
@@ -243,6 +281,7 @@ function draw(notes) {
 document.getElementById('startBtn').addEventListener('click', function (event) {
     let menu = document.getElementsByClassName('menuContainer')[0];
     let canvas = document.getElementsByClassName('canvasContainer')[0];
+
     menu.style.display = 'none';
     canvas.style.display = 'block';
     let audio = new Audio("./songs/ppp.mp3");
@@ -257,8 +296,6 @@ document.getElementById('startBtn').addEventListener('click', function (event) {
     }
 });
 
-const body = document.getElementsByTagName('body')[0];
-let id;
 
 function gameLoop() {
     id = requestAnimationFrame(gameLoop)
