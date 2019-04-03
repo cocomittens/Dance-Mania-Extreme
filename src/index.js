@@ -1,4 +1,4 @@
-import { songsDownHandler} from './songs.js';
+import { songsDownHandler } from './songs.js';
 
 let right = new Image();
 let left = new Image();
@@ -13,7 +13,7 @@ const body = document.getElementsByTagName('body')[0];
 let id;
 
 
-let song = [
+let song1 = [
     null, null, null, null,
     null, null, null, null,
     null, null, null, null,
@@ -102,7 +102,47 @@ let song2 = [
     [up], null, [down], null,
     [up], [up], [down], [down],
     [up], [down], [up], null,
-    [down], null, [down], null
+    [down], null, [down], null,
+    [right], null, null, null,
+    [left], null, [left], null,
+    [down], null, null, null,
+    [left], null, [left], null,
+    [up], null, null, null,
+    [down], null, [down], null,
+    [left, right], null, null, null,
+    [up], null, null, null,
+    [up], [up], [up], null,
+    [down], null, null, null,
+    [down], [down], [down], null,
+    [right], null, null, null,
+    [right], [right], [right], null,
+    [left], null, [left], null,
+    [left], [left], [left], null,
+    [up], null, null, null,
+    [left], null, null, null,
+    [left], null, null, null,
+    [right], null, null, null,
+    [down], null, null, null,
+    [right], null, null, null,
+    [left], null, [right], null,
+    [left, right], null, null, null,
+    [right], null, [right], null,
+    [right], null, [down], [down],
+    [down], null, [down], null,
+    [down], null, [up], [up],
+    [up], null, [up], null,
+    [up], null, [left], [left],
+    [left], null, [left], null,
+    [left], null, null, null,
+    [right], [right], [right], null,
+    [left], null, [left], null,
+    [up], [up], [up], null,
+    [down], null, [down], null,
+    [up], [up], [up], null,
+    [down], [down], [down], null,
+    [up], null, [down], null,
+    [up, down], null, null, null,
+    [left], null, null, null
 ];
 
 
@@ -110,28 +150,36 @@ document.getElementById('songBtn').addEventListener('click', function(event) {
 	let menu = document.getElementsByClassName('menuContainer')[0];
     let songs = document.getElementsByClassName('songsContainer')[0];
 	menu.style.display = 'none';
-	songs.style.display = 'block';
+    songs.style.display = 'block';
+    let menuAudio = new Audio('./songs/bensound-popdance.mp3');
+    menuAudio.play();
 	document.getElementById('stylesheet').href = './css/songs.css';
 	document.addEventListener('keydown', songsDownHandler, false);
 	document.addEventListener('keydown', function(e) {
 		if (e.key === 'Enter') {
+            menuAudio.pause();
 			document.getElementById('stylesheet').href = './css/styles.css';
             let active = document.getElementsByClassName('active')[0].classList.contains('c-3');
 			let menu = document.getElementsByClassName('songsContainer')[0];
 			let canvas = document.getElementsByClassName('canvasContainer')[0];
             let audio;
+            let bpm;
+            let song;
 			menu.style.display = 'none';
             if (active) {
                 audio = new Audio('./songs/ppp.mp3');
                 body.style.backgroundImage = "url('./backgrounds/ppp_bg.png')";
+                bpm = 375;
+                song = song1;
             } else {
                 audio = new Audio('./songs/www.ogg');
-                body.style.backgroundImage = `url('./backgrounds/abstract.mp4')`;
+                body.style.backgroundImage = `url('./backgrounds/www_bg.png')`;
+                bpm = 425;
+                song = song2;
             }
             canvas.style.display = 'block';
 
 			audio.play();
-			let bpm = 375;
 			drawNote([]);
 			for (let i = 0; i < song.length; i++) {
 				let beat = song[i];
@@ -176,7 +224,7 @@ let drawNote = (beat) => {
 }
 
 function draw(notes) {
-    ctx.font = "30px Helvetica";
+    ctx.font = "bold 30px Helvetica";
     ctx.clearRect(0, 0, 600, 600); // clear the canvas
     if (rightPressed) {
         ctx.drawImage(right_arrow_active, 400, 0);
@@ -265,7 +313,6 @@ function draw(notes) {
                 ctx.fillStyle = color;
                 ctx.fillText(note.score, 250, 150);
                 note.displayed++;
-                ctx.fillStyle = '#fff';
 
             }
 
@@ -274,15 +321,24 @@ function draw(notes) {
     }
     if (combo >= 2) {
         let comboText = `${combo} combo`;
+        ctx.fillStyle = '#fff';
+
+
         ctx.fillText(comboText, 235, 200);
+
+
     }
 }
 
 document.getElementById('startBtn').addEventListener('click', function (event) {
     let menu = document.getElementsByClassName('menuContainer')[0];
     let canvas = document.getElementsByClassName('canvasContainer')[0];
+    let song = song1;
+    body.style.backgroundImage = `url('./backgrounds/ppp_bg.png')`;
 
     menu.style.display = 'none';
+    body.style.backgroundImage = `url('./backgrounds/ppp_bg.png')`;
+
     canvas.style.display = 'block';
     let audio = new Audio("./songs/ppp.mp3");
     audio.play();

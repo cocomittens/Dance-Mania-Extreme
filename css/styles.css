@@ -7,6 +7,9 @@ body {
     background-size: cover;
 }  
 
+.logo {
+}
+
 .canvasContainer {
     display: flex;
     justify-content: center;
