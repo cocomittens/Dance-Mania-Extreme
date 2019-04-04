@@ -174,7 +174,7 @@ document.getElementById('songBtn').addEventListener('click', function(event) {
             } else {
                 audio = new Audio('./songs/www.ogg');
                 body.style.backgroundImage = `url('./backgrounds/www_bg.png')`;
-                bpm = 425;
+                bpm = 415;
                 song = song2;
             }
             canvas.style.display = 'block';
