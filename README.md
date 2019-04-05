@@ -6,9 +6,31 @@ Dance Mania Xtreme is a rhythm game inspired by the classic games Dance Dance Re
 
 ## Key Features
 ### Start Menu
-This is the first screen that players are greeted by.
+This is the first screen that players are greeted by. "Quick play" will take the player to a random song, while "Start Game" will take them to the song selection menu.
+
 ![Start Menu](https://i.imgur.com/kEq1FOR.jpg "Start Menu")
 
+### Song Selection Menu
+Players can select a song and difficulty here, with the left/right and up/down arrows, respectively. They can then press "enter" to start the game with the selected options.
+
+![Song Selection Menu](https://i.imgur.com/MJ2tysE.jpg "Song Selection Menu")
+
+### Gameplay
+Players must hit the arrows at the right time in order to acheive a high score. Failure to do so will result in "Miss" ratings as seen here. Too many misses and the player will fail the song!
+
+![Gameplay](https://i.imgur.com/JYQefIW.jpg "Gameplay")
+
+
 ## Technologies Used
+- Javascript
+- Canvas
+- HTML5
+- CSS3
 
 ## Future Features
+- Tutorial
+- Sliding arrows
+- 1/8 and 1/16 time arrows
+- Score show screen
+- Difficulty selector
+- Song previews on song selection page
