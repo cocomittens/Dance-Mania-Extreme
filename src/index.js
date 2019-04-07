@@ -1,150 +1,50 @@
-import { songsDownHandler } from './songs.js';
+import { songsDownHandler, scrollMenu } from './songs_menu.js';
+import { getSong } from './songs.js';
 
-let right = new Image();
-let left = new Image();
-let up = new Image();
-let down = new Image();
-
-right.src = './sprites/arrow_right_note.png';
-left.src = './sprites/arrow_left_note.png';
-up.src = './sprites/arrow_up_note.png';
-down.src = './sprites/arrow_down_note.png';
 const body = document.getElementsByTagName('body')[0];
 let id;
 
+let right_arrow = new Image();
+let left_arrow = new Image();
+let up_arrow = new Image();
+let down_arrow = new Image();
 
-let song1 = [
-    null, null, null, null,
-    null, null, null, null,
-    null, null, null, null,
-    null, null, null, null,
-    [left], null, [right], null,
-    [down], null, [up], null,
-    [right], null, [left], null,
-    [up], null, [down], null,
-    [left], null, [up], null,
-    [down], null, [right], null,
-    [left], null, [down], null,
-    [right], null, [up], null,
-    [right], null, [down], null,
-    [up], null, [left], null,
-    [right], null, [up], null,
-    [left], null, [down], null,
-    [left], null, [down], null,
-    [up], null, [right], null,
-    [up], null, [down], null,
-    [left], null, null, [right],
-    [down], null, [up], null,
-    [right], null, [left], null,
-    [right], null, [up], null,
-    [down], null, null, [up],
-    [right], null, [up], null,
-    [down], null, [left], null,
-    [down], null, [up], null,
-    [right], null, null, [left],
-    [up], null, [right], null,
-    [left], null, [down], null,
-    [left], null, [right], null,
-    [up], null, null, [down],
-    [left, right], null, [left], [right],
-    [up], [down], [up], [down],
-    [right], null, [left], null,
-    [right], [left], [down], [up],
-    [left, right], null, [right], [down],
-    [left], [up], [left], [up],
-    [down], null, [right], null,
-    [down], [right], [up], [left],
-    [up], null, [down], null,
-    [left], [up, down], [right], [up, down],
-    [down], null, [up], null,
-    [right], [up, down], [left], [up, down],
-    [right], null, [left], null,
-    [down], [left, right], [up], [left, right],
-    [left], null, [right], null,
-    [left, right], null, null, null,
-    [left], null, [right], null,
-    [down], null, [up], null,
-    [down], null, [right], null,
-    [left], null, null, [right],
-    [down], null, [up], null,
-    [right], null, [left], null,
-    [right], null, [up], null,
-    [down], null, null, [up],
-    [right], [down], [up], [left],
-    [right], [up], [left], [down],
-    [left], [up], [down], [right],
-    [left], [down], [right], [up],
-    [right], [up], [down], [left],
-    [right], [left], [up], [down],
-    [left], [down], [up], [right],
-    [left], [right], [down], [left, right]
-];
+right_arrow.src = './sprites/arrow_right.png';
+left_arrow.src = './sprites/arrow_left.png';
+up_arrow.src = './sprites/arrow_up.png';
+down_arrow.src = './sprites/arrow_down.png';
 
-let song2 = [
-    null, null, null, null,
-    null, null, null, null,
-    null, null, null, null,
-    null, null, null, null,
-    [up], null, null, null,
-    [down], null, null, null,
-    [up], null, null, null,
-    [down], null, null, null,
-    [right], null, [right], null,
-    [down], null, [down], null,
-    [right], null, [right], null,
-    [left], null, [left], null,
-    [right], [right], [right], null,
-    [left], [left], [left], null,
-    [right], null, [left], null,
-    [left, right], null, null, null,
-    [up], null, [down], null,
-    [up], null, [down], null,
-    [up], null, [down], null,
-    [up], [up], [down], [down],
-    [up], [down], [up], null,
-    [down], null, [down], null,
-    [right], null, null, null,
-    [left], null, [left], null,
-    [down], null, null, null,
-    [left], null, [left], null,
-    [up], null, null, null,
-    [down], null, [down], null,
-    [left, right], null, null, null,
-    [up], null, null, null,
-    [up], [up], [up], null,
-    [down], null, null, null,
-    [down], [down], [down], null,
-    [right], null, null, null,
-    [right], [right], [right], null,
-    [left], null, [left], null,
-    [left], [left], [left], null,
-    [up], null, null, null,
-    [left], null, null, null,
-    [left], null, null, null,
-    [right], null, null, null,
-    [down], null, null, null,
-    [right], null, null, null,
-    [left], null, [right], null,
-    [left, right], null, null, null,
-    [right], null, [right], null,
-    [right], null, [down], [down],
-    [down], null, [down], null,
-    [down], null, [up], [up],
-    [up], null, [up], null,
-    [up], null, [left], [left],
-    [left], null, [left], null,
-    [left], null, null, null,
-    [right], [right], [right], null,
-    [left], null, [left], null,
-    [up], [up], [up], null,
-    [down], null, [down], null,
-    [up], [up], [up], null,
-    [down], [down], [down], null,
-    [up], null, [down], null,
-    [up, down], null, null, null,
-    [left], null, null, null
-];
+let right_arrow_active = new Image();
+let left_arrow_active = new Image();
+let up_arrow_active = new Image();
+let down_arrow_active = new Image();
 
+right_arrow_active.src = './sprites/arrow_right_active.png';
+left_arrow_active.src = './sprites/arrow_left_active.png';
+up_arrow_active.src = './sprites/arrow_up_active.png';
+down_arrow_active.src = './sprites/arrow_down_active.png';
+
+document.getElementById('startBtn').addEventListener('click', function (event) {
+    let menu = document.getElementsByClassName('menuContainer')[0];
+    let canvas = document.getElementsByClassName('canvasContainer')[0];
+    let song = getSong(1);
+    body.style.backgroundImage = `url('./backgrounds/ppp_bg.png')`;
+
+    menu.style.display = 'none';
+    body.style.backgroundImage = `url('./backgrounds/ppp_bg.png')`;
+
+    canvas.style.display = 'block';
+    let audio = new Audio("./songs/ppp.mp3");
+    audio.play();
+    let bpm = 375;
+    drawNote([]);
+    for (let i = 0; i < song.length; i++) {
+        let beat = song[i];
+        if (beat) {
+            setTimeout(() => drawNote(beat), i * bpm);
+        }
+    }
+});
 
 document.getElementById('songBtn').addEventListener('click', function(event) {
 	let menu = document.getElementsByClassName('menuContainer')[0];
@@ -154,7 +54,7 @@ document.getElementById('songBtn').addEventListener('click', function(event) {
     let menuAudio = new Audio('./songs/bensound-popdance.mp3');
     menuAudio.play();
 	document.getElementById('stylesheet').href = './css/songs.css';
-	document.addEventListener('keydown', songsDownHandler, false);
+	document.addEventListener('keydown', scrollMenu(songsDownHandler, 400), false);
 	document.addEventListener('keydown', function(e) {
 		if (e.key === 'Enter') {
             menuAudio.pause();
@@ -170,12 +70,12 @@ document.getElementById('songBtn').addEventListener('click', function(event) {
                 audio = new Audio('./songs/ppp.mp3');
                 body.style.backgroundImage = "url('./backgrounds/ppp_bg.png')";
                 bpm = 375;
-                song = song1;
+                song = getSong(1);
             } else {
                 audio = new Audio('./songs/www.ogg');
                 body.style.backgroundImage = `url('./backgrounds/www_bg.png')`;
-                bpm = 415;
-                song = song2;
+                bpm = 400;
+                song = getSong(2);
             }
             canvas.style.display = 'block';
 
@@ -190,8 +90,6 @@ document.getElementById('songBtn').addEventListener('click', function(event) {
 		}
 	});
 });
-
-
 
 let dx = 1;
 let ctx;
@@ -225,6 +123,8 @@ let drawNote = (beat) => {
 
 function draw(notes) {
     ctx.font = "bold 30px Helvetica";
+    ctx.strokeStyle = '#000';
+
     ctx.clearRect(0, 0, 600, 600); // clear the canvas
     if (rightPressed) {
         ctx.drawImage(right_arrow_active, 400, 0);
@@ -313,7 +213,6 @@ function draw(notes) {
 				}
                 ctx.drawImage(score, 250, 150);
                 note.displayed++;
-
             }
 
             note.y -= dx;
@@ -323,33 +222,9 @@ function draw(notes) {
         let comboText = `${combo} combo`;
         ctx.fillStyle = '#fff';
         ctx.fillText(comboText, 260, 225);
-        ctx.fillStyle = '#000';
         ctx.strokeText(comboText, 260, 225);
-
     }
 }
-
-document.getElementById('startBtn').addEventListener('click', function (event) {
-    let menu = document.getElementsByClassName('menuContainer')[0];
-    let canvas = document.getElementsByClassName('canvasContainer')[0];
-    let song = song1;
-    body.style.backgroundImage = `url('./backgrounds/ppp_bg.png')`;
-
-    menu.style.display = 'none';
-    body.style.backgroundImage = `url('./backgrounds/ppp_bg.png')`;
-
-    canvas.style.display = 'block';
-    let audio = new Audio("./songs/ppp.mp3");
-    audio.play();
-    let bpm = 375;
-    drawNote([]);
-    for(let i = 0; i < song.length; i++) {
-        let beat = song[i];
-        if (beat) {
-            setTimeout(() => drawNote(beat), i * bpm);
-        } 
-    }
-});
 
 
 function gameLoop() {
@@ -362,68 +237,56 @@ if(body) {
     })
 }
 
-let right_arrow = new Image();
-let left_arrow = new Image();
-let up_arrow = new Image();
-let down_arrow = new Image();
-
-right_arrow.src = "./sprites/arrow_right.png";
-left_arrow.src = "./sprites/arrow_left.png";
-up_arrow.src = "./sprites/arrow_up.png";
-down_arrow.src = "./sprites/arrow_down.png";
-
-let right_arrow_active = new Image();
-let left_arrow_active = new Image();
-let up_arrow_active = new Image();
-let down_arrow_active = new Image();
-
-right_arrow_active.src = "./sprites/arrow_right_active.png";
-left_arrow_active.src = "./sprites/arrow_left_active.png";
-up_arrow_active.src = "./sprites/arrow_up_active.png";
-down_arrow_active.src = "./sprites/arrow_down_active.png";
-
 let upPressed = false;
 let downPressed = false;
 let rightPressed = false;
 let leftPressed = false;
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
 
-function keyDownHandler(e) {
-    switch (e.key) {
-        case "ArrowUp":
-            upPressed = true;
-            setTimeout(() => keyUpHandler(e), 100);
-            break;
-        case "ArrowDown":
-            downPressed = true;
-            setTimeout(() => keyUpHandler(e), 100);
-            break;
-        case "ArrowRight":
-            rightPressed = true;
-            setTimeout(() => keyUpHandler(e), 100);
-            break;
-        case "ArrowLeft":
-            leftPressed = true;
-            setTimeout(() => keyUpHandler(e), 100);
-            break;
-    }
+export function keyDownHandler(e) {
+	switch (e.key) {
+		case 'w':
+		case 'ArrowUp':
+			upPressed = true;
+			setTimeout(() => keyUpHandler(e), 100);
+			break;
+		case 's':
+		case 'ArrowDown':
+			downPressed = true;
+			setTimeout(() => keyUpHandler(e), 100);
+			break;
+		case 'ArrowRight':
+		case 'd':
+			rightPressed = true;
+			setTimeout(() => keyUpHandler(e), 100);
+			break;
+		case 'a':
+		case 'ArrowLeft':
+			leftPressed = true;
+			setTimeout(() => keyUpHandler(e), 100);
+			break;
+	}
 }
 
-function keyUpHandler(e) {
-    switch (e.key) {
-        case "ArrowUp":
-            upPressed = false;
-            break;
-        case "ArrowDown":
-            downPressed = false;
-            break;
-        case "ArrowRight":
-            rightPressed = false;
-            break;
-        case "ArrowLeft":
-            leftPressed = false;
-            break;
-    }
+export function keyUpHandler(e) {
+	switch (e.key) {
+		case 'w':
+		case 'ArrowUp':
+			upPressed = false;
+			break;
+		case 's':
+		case 'ArrowDown':
+			downPressed = false;
+			break;
+		case 'd':
+		case 'ArrowRight':
+			rightPressed = false;
+			break;
+		case 'a':
+		case 'ArrowLeft':
+			leftPressed = false;
+			break;
+	}
 }

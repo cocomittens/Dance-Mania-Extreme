@@ -1,63 +1,151 @@
-let songsList = ['c-1', 'c-2', 'c-3', 'c-4', 'c-5'];
+let right = new Image();
+let left = new Image();
+let up = new Image();
+let down = new Image();
 
-export function songsDownHandler(e) {
-    if (e.key === "ArrowLeft") {
-        let foundActive = false;
-        for (let i = 0; i < songsList.length; i++) {
+right.src = './sprites/arrow_right_note.png';
+left.src = './sprites/arrow_left_note.png';
+up.src = './sprites/arrow_up_note.png';
+down.src = './sprites/arrow_down_note.png';
 
-            let curr = document.getElementsByClassName(songsList[i])[0];
-            let next = document.getElementsByClassName(songsList[i + 1])[0];
+let song1 = [
+    null, null, null, null,
+    null, null, null, null,
+    null, null, null, null,
+    null, null, null, null,
+    [left], null, [right], null,
+    [down], null, [up], null,
+    [right], null, [left], null,
+    [up], null, [down], null,
+    [left], null, [up], null,
+    [down], null, [right], null,
+    [left], null, [down], null,
+    [right], null, [up], null,
+    [right], null, [down], null,
+    [up], null, [left], null,
+    [right], null, [up], null,
+    [left], null, [down], null,
+    [left], null, [down], null,
+    [up], null, [right], null,
+    [up], null, [down], null,
+    [left], null, null, [right],
+    [down], null, [up], null,
+    [right], null, [left], null,
+    [right], null, [up], null,
+    [down], null, null, [up],
+    [right], null, [up], null,
+    [down], null, [left], null,
+    [down], null, [up], null,
+    [right], null, null, [left],
+    [up], null, [right], null,
+    [left], null, [down], null,
+    [left], null, [right], null,
+    [up], null, null, [down],
+    [left, right], null, [left], [right],
+    [up], [down], [up], [down],
+    [right], null, [left], null,
+    [right], [left], [down], [up],
+    [left, right], null, [right], [down],
+    [left], [up], [left], [up],
+    [down], null, [right], null,
+    [down], [right], [up], [left],
+    [up], null, [down], null,
+    [left], [up, down], [right], [up, down],
+    [down], null, [up], null,
+    [right], [up, down], [left], [up, down],
+    [right], null, [left], null,
+    [down], [left, right], [up], [left, right],
+    [left], null, [right], null,
+    [left, right], null, null, null,
+    [left], null, [right], null,
+    [down], null, [up], null,
+    [down], null, [right], null,
+    [left], null, null, [right],
+    [down], null, [up], null,
+    [right], null, [left], null,
+    [right], null, [up], null,
+    [down], null, null, [up],
+    [right], [down], [up], [left],
+    [right], [up], [left], [down],
+    [left], [up], [down], [right],
+    [left], [down], [right], [up],
+    [right], [up], [down], [left],
+    [right], [left], [up], [down],
+    [left], [down], [up], [right],
+    [left], [right], [down], [left, right]
+];
 
-            let currPos = window.getComputedStyle(curr, null).getPropertyValue("transform");
-            var values = currPos.split('(')[1],
-                values = values.split(')')[0],
-                values = values.split(',');
-            let currX = parseInt(values[4].slice(1));
-            let currY = parseInt(values[5]);
-            if (i === 0) curr.style.transform = `translate(${60}px, ${-160}px)`;
-            else {
-                let newPos;
-                newPos = (foundActive) ? `translate(${currX - 30}px, ${currY + 80}px)` : `translate(${currX + 30}px, ${currY + 80}px)`
-                curr.style.transform = newPos;
-            }
-            if (curr.classList.contains('active') && !foundActive) {
-                foundActive = true;
-                curr.classList.remove('active');
-                next.classList.add('active');
-            }
 
-        }
-        songsList.push(songsList.shift());
-    }
+let song2 = [
+    null, null, null, null,
+    null, null, null, null,
+    null, null, null, null,
+    null, null, null, null,
+    [up], null, null, null,
+    [down], null, null, null,
+    [up], null, null, null,
+    [down], null, null, null,
+    [right], null, [right], null,
+    [down], null, [down], null,
+    [right], null, [right], null,
+    [left], null, [left], null,
+    [right], [right], [right], null,
+    [left], [left], [left], null,
+    [right], null, [left], null,
+    [left, right], null, null, null,
+    [up], null, [down], null,
+    [up], null, [down], null,
+    [up], null, [down], null,
+    [up], [up], [down], [down],
+    [up], [down], [up], null,
+    [down], null, [down], null,
+    [right], null, null, null,
+    [left], null, [left], null,
+    [down], null, null, null,
+    [left], null, [left], null,
+    [up], null, null, null,
+    [down], null, [down], null,
+    [left, right], null, null, null,
+    [up], null, null, null,
+    [up], [up], [up], null,
+    [down], null, null, null,
+    [down], [down], [down], null,
+    [right], null, null, null,
+    [right], [right], [right], null,
+    [left], null, [left], null,
+    [left], [left], [left], null,
+    [up], null, null, null,
+    [left], null, null, null,
+    [left], null, null, null,
+    [right], null, null, null,
+    [down], null, null, null,
+    [right], null, null, null,
+    [left], null, [right], null,
+    [left, right], null, null, null,
+    [right], null, [right], null,
+    [right], null, [down], [down],
+    [down], null, [down], null,
+    [down], null, [up], [up],
+    [up], null, [up], null,
+    [up], null, [left], [left],
+    [left], null, [left], null,
+    [left], null, null, null,
+    [right], [right], [right], null,
+    [left], null, [left], null,
+    [up], [up], [up], null,
+    [down], null, [down], null,
+    [up], [up], [up], null,
+    [down], [down], [down], null,
+    [up], null, [down], null,
+    [up, down], null, null, null,
+    [left], null, null, null
+];
 
-
-    if (e.key === "ArrowRight") {
-        let foundActive = false;
-        for (let i = 0; i < songsList.length; i++) {
-
-            let curr = document.getElementsByClassName(songsList[i])[0];
-            let next = document.getElementsByClassName(songsList[i - 1])[0];
-
-            let currPos = window.getComputedStyle(curr, null).getPropertyValue("transform");
-            var values = currPos.split('(')[1],
-                values = values.split(')')[0],
-                values = values.split(',');
-            let currX = parseInt(values[4].slice(1));
-            let currY = parseInt(values[5]);
-            if (curr.classList.contains('active') && !foundActive) {
-                foundActive = true;
-                curr.classList.remove('active');
-                next.classList.add('active');
-            }
-
-            if (i === 4) curr.style.transform = `translate(${60}px, ${160}px)`;
-            else {
-                let newPos;
-                newPos = foundActive ? `translate(${currX + 30}px, ${currY - 80}px)` : `translate(${currX - 30}px, ${currY - 80}px)`;
-                curr.style.transform = newPos;
-            }
-        }
-        songsList.unshift(songsList.pop());
-    }
-
+export function getSong(songNum) {
+    switch (songNum) {
+		case 1:
+            return song1;
+        case 2:
+            return song2;
+	}
 }
