@@ -131,7 +131,7 @@ const drawNote = (beat) => {
 
 const draw = (notes) => {
     ctx.font = "bold 30px Helvetica";
-    progressGradient = ctx.createLinearGradient(550, 100 + progress, 580, 400);
+    progressGradient = ctx.createLinearGradient(550, 400 - progress, 580, 400);
     progressGradient.addColorStop(0, "blue");
     progressGradient.addColorStop(1, "red");
     ctx.fillStyle = progressGradient;
@@ -188,7 +188,7 @@ const draw = (notes) => {
 
             if (note.score && !note.displayed) {
                 if (note.score == 'Good' || note.score == 'Perfect!') {
-                    progress += 5;
+                    if (progress < 300) progress += 5;
                     combo++;
                 }
                 else {
