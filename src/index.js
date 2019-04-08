@@ -24,19 +24,24 @@ left_arrow_active.src = './sprites/arrow_left_active.png';
 up_arrow_active.src = './sprites/arrow_up_active.png';
 down_arrow_active.src = './sprites/arrow_down_active.png';
 
+/* Main menu buttons */
+
+let menu = document.getElementsByClassName('menuContainer')[0];
+let canvas = document.getElementsByClassName('canvasContainer')[0];
+let songSelect = document.getElementsByClassName('songsContainer')[0];
+let menuAudio = new Audio('./songs/bensound-popdance.mp3');
+let audio = new Audio("./songs/www.ogg");
+let song;
+let bpm;
+let active;
+
 document.getElementById('startBtn').addEventListener('click', function (event) {
-    let menu = document.getElementsByClassName('menuContainer')[0];
-    let canvas = document.getElementsByClassName('canvasContainer')[0];
-    let song = getSong(1);
-    body.style.backgroundImage = `url('./backgrounds/ppp_bg.png')`;
-
     menu.style.display = 'none';
-    body.style.backgroundImage = `url('./backgrounds/ppp_bg.png')`;
-
+    body.style.backgroundImage = `url('./backgrounds/www_bg.png')`;
     canvas.style.display = 'block';
-    let audio = new Audio("./songs/ppp.mp3");
     audio.play();
-    let bpm = 375;
+    song = getSong(2);
+    bpm = 700;
     drawNote([]);
     for (let i = 0; i < song.length; i++) {
         let beat = song[i];
@@ -47,25 +52,17 @@ document.getElementById('startBtn').addEventListener('click', function (event) {
 });
 
 document.getElementById('songBtn').addEventListener('click', function(event) {
-	let menu = document.getElementsByClassName('menuContainer')[0];
-    let songs = document.getElementsByClassName('songsContainer')[0];
 	menu.style.display = 'none';
-    songs.style.display = 'block';
-    let menuAudio = new Audio('./songs/bensound-popdance.mp3');
+    songSelect.style.display = 'block';
     menuAudio.play();
 	document.getElementById('stylesheet').href = './css/songs.css';
 	document.addEventListener('keydown', scrollMenu(songsDownHandler, 400), false);
 	document.addEventListener('keydown', function(e) {
 		if (e.key === 'Enter') {
             menuAudio.pause();
-			document.getElementById('stylesheet').href = './css/styles.css';
-            let active = document.getElementsByClassName('active')[0].classList.contains('c-3');
-			let menu = document.getElementsByClassName('songsContainer')[0];
-			let canvas = document.getElementsByClassName('canvasContainer')[0];
-            let audio;
-            let bpm;
-            let song;
 			menu.style.display = 'none';
+			document.getElementById('stylesheet').href = './css/styles.css';
+            active = document.getElementsByClassName('active')[0].classList.contains('c-3');
             if (active) {
                 audio = new Audio('./songs/ppp.mp3');
                 body.style.backgroundImage = "url('./backgrounds/ppp_bg.png')";
@@ -74,7 +71,7 @@ document.getElementById('songBtn').addEventListener('click', function(event) {
             } else {
                 audio = new Audio('./songs/www.ogg');
                 body.style.backgroundImage = `url('./backgrounds/www_bg.png')`;
-                bpm = 400;
+                bpm = 450;
                 song = getSong(2);
             }
             canvas.style.display = 'block';
@@ -91,41 +88,62 @@ document.getElementById('songBtn').addEventListener('click', function(event) {
 	});
 });
 
-let dx = 1;
+/* Rendering */
+
+let dx = 10;
 let ctx;
 let notes = [];
 let combo = 0;
-let speed = 1; // lower is faster
+let comboText;
+let speed = 30; // lower is faster
+let noteX;
 let y = 600; // vertical offset
 let run;
+let progress = 150;
+let progressGradient;
 
-let drawNote = (beat) => {
+const calculateScore = (pixels) => {
+    if (pixels <= 30 && pixels >= 25) return 'Bad';
+    if (pixels <= 25 && pixels >= 20) return 'OK';
+    if (pixels <= 20 && pixels >= 10) return 'Good';
+    if (pixels <= 10) return 'Perfect!';
+}
+
+const drawNote = (beat) => {
     if(beat) {
-        let noteX;
-            beat.forEach(note => {
-                if (note.src.includes('left')) noteX = 100;
-                if (note.src.includes('down')) noteX = 200;
-                if (note.src.includes('up')) noteX = 300;
-                if (note.src.includes('right')) noteX = 400;
-                notes.push({ img: note, 
-                    x: noteX, 
-                    y, 
-                    score: null,
-                    displayed: 0
-                 });
-            })
+        beat.forEach(note => {
+            if (note.src.includes('left')) noteX = 100;
+            if (note.src.includes('down')) noteX = 200;
+            if (note.src.includes('up')) noteX = 300;
+            if (note.src.includes('right')) noteX = 400;
+            notes.push({ img: note, 
+                x: noteX, 
+                y, 
+                score: null,
+                displayed: 0
+            });
+        })
     }
-
     ctx = document.getElementById('canvas').getContext('2d');
     clearInterval(run);
     run = setInterval(() => draw(notes), speed);
 }
 
-function draw(notes) {
+const draw = (notes) => {
     ctx.font = "bold 30px Helvetica";
+    progressGradient = ctx.createLinearGradient(550, 100 + progress, 580, 400);
+    progressGradient.addColorStop(0, "blue");
+    progressGradient.addColorStop(1, "red");
+    ctx.fillStyle = progressGradient;
     ctx.strokeStyle = '#000';
 
     ctx.clearRect(0, 0, 600, 600); // clear the canvas
+
+    ctx.beginPath();
+    ctx.rect(550, 100, 30, 300);
+    ctx.stroke();
+    ctx.fillRect(550, 400 - progress, 30, progress);
+
     if (rightPressed) {
         ctx.drawImage(right_arrow_active, 400, 0);
     } else {
@@ -133,7 +151,6 @@ function draw(notes) {
     }
     if (upPressed) {
         ctx.drawImage(up_arrow_active, 300, 0);
-
     } else {
         ctx.drawImage(up_arrow, 300, 0);
     }
@@ -153,45 +170,35 @@ function draw(notes) {
             ctx.drawImage(note.img, note.x, note.y);
 
             if(note.x === 100 && !note.score && leftPressed) {
-                if(note.y <= 30 && note.y >= 25) note.score = 'Bad';
-                if(note.y <= 25 && note.y >= 20) note.score = 'OK';
-                if (note.y <= 20 && note.y >= 10) note.score = 'Good';
-                if (note.y <= 10) note.score = 'Perfect!';
+                note.score = calculateScore(note.y);
             }
-
             if (note.x === 200 && !note.score && downPressed) {
-                if (note.y <= 30 && note.y >= 25) note.score = 'Bad';
-                if (note.y <= 25 && note.y >= 20) note.score = 'OK';
-                if (note.y <= 20 && note.y >= 10) note.score = 'Good';
-                if (note.y <= 10) note.score = 'Perfect!';
+                note.score = calculateScore(note.y);
             }
-
             if (note.x === 300 && !note.score && upPressed) {
-                if (note.y <= 30 && note.y >= 25) note.score = 'Bad';
-                if (note.y <= 25 && note.y >= 20) note.score = 'OK';
-                if (note.y <= 20 && note.y >= 10) note.score = 'Good';
-                if (note.y <= 10) note.score = 'Perfect!';
+                note.score = calculateScore(note.y);
             }
-
             if (note.x === 400 && !note.score && rightPressed) {
-                if (note.y <= 30 && note.y >= 25) note.score = 'Bad';
-                if (note.y <= 25 && note.y >= 20) note.score = 'OK';
-                if (note.y <= 20 && note.y >= 10) note.score = 'Good';
-                if (note.y <= 10) note.score = 'Perfect!';
+                note.score = calculateScore(note.y);
             }
-
             if (note.y < 0 && !note.score) {
                 note.score = 'Miss';
                 combo = 0;
             }
 
             if (note.score && !note.displayed) {
-                if (note.score == 'Good' || note.score == 'Perfect!') combo++;
-                else combo = 0;
+                if (note.score == 'Good' || note.score == 'Perfect!') {
+                    progress += 5;
+                    combo++;
+                }
+                else {
+                    progress -= 5;
+                    combo = 0;
+                }
             }
 
-            // Display score for 70 frames
-            if (note.score && note.displayed <= 70) {
+            // Display score for 20 frames
+            if (note.score && note.displayed <= 20) {
                 let score = new Image();
                 
                 switch (note.score) {
@@ -214,28 +221,19 @@ function draw(notes) {
                 ctx.drawImage(score, 250, 150);
                 note.displayed++;
             }
-
             note.y -= dx;
         });
     }
+
     if (combo >= 2) {
-        let comboText = `${combo} combo`;
+        comboText = `${combo} combo`;
         ctx.fillStyle = '#fff';
         ctx.fillText(comboText, 260, 225);
         ctx.strokeText(comboText, 260, 225);
     }
 }
 
-
-function gameLoop() {
-    id = requestAnimationFrame(gameLoop)
-}
-
-if(body) {
-    body.addEventListener('click', () => {
-        cancelAnimationFrame(id)
-    })
-}
+/* Controls */
 
 let upPressed = false;
 let downPressed = false;
@@ -289,4 +287,16 @@ export function keyUpHandler(e) {
 			leftPressed = false;
 			break;
 	}
+}
+
+/* Animation */
+
+function gameLoop() {
+    id = requestAnimationFrame(gameLoop)
+}
+
+if (body) {
+    body.addEventListener('click', () => {
+        cancelAnimationFrame(id)
+    })
 }
