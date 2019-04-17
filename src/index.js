@@ -59,6 +59,7 @@ document.getElementById('startBtn').addEventListener('click', function (event) {
 const calculateGrade = results => {
     let total = 0;
     let weightedScore = 0;
+    let percentage;
     total += results.Perfect;
     total += results.Great;
     total += results.OK;
@@ -70,7 +71,15 @@ const calculateGrade = results => {
     weightedScore += results.OK * .6;
     weightedScore += results.Bad * .4;
     
-    return weightedScore/total;
+    percentage = (weightedScore/total) * 100;
+    console.log(percentage);
+    if (percentage < 60) return 'D';
+    if (percentage >= 60 && percentage < 68) return 'C';
+    if (percentage >= 68 && percentage < 86) return 'B';
+    if (percentage >= 86 && percentage < 93) return 'A';
+    if (percentage >= 93 && percentage < 96) return 'S';
+    if (percentage >= 96) return 'SS';
+
 }
 
 const showResults = () => {
@@ -185,10 +194,11 @@ const drawNote = (beat) => {
 const draw = (notes) => {
     ctx.font = "bold 30px Helvetica";
     progressGradient = ctx.createLinearGradient(550, 400 - progress, 580, 400);
-    progressGradient.addColorStop(0, "blue");
-    progressGradient.addColorStop(1, "red");
+    progressGradient.addColorStop(0, "#40CBEA");
+    progressGradient.addColorStop(1, "#FE86C1");
+
     ctx.fillStyle = progressGradient;
-    ctx.strokeStyle = '#000';
+    ctx.strokeStyle = '#FFF';
 
     ctx.clearRect(0, 0, 600, 600); // clear the canvas
 
@@ -196,6 +206,7 @@ const draw = (notes) => {
     ctx.rect(550, 100, 30, 300);
     ctx.stroke();
     ctx.fillRect(550, 400 - progress, 30, progress);
+
 
     if (rightPressed) {
         ctx.drawImage(right_arrow_active, 400, 0);
@@ -282,6 +293,7 @@ const draw = (notes) => {
     if (combo >= 2) {
         comboText = `${combo} combo`;
         ctx.fillStyle = '#fff';
+        ctx.strokeStyle = '#000';
         ctx.fillText(comboText, 260, 225);
         ctx.strokeText(comboText, 260, 225);
     }
@@ -302,22 +314,22 @@ export function keyDownHandler(e) {
 		case 'w':
 		case 'ArrowUp':
 			upPressed = true;
-			setTimeout(() => keyUpHandler(e), 100);
+			setTimeout(() => keyUpHandler(e), 150);
 			break;
 		case 's':
 		case 'ArrowDown':
 			downPressed = true;
-			setTimeout(() => keyUpHandler(e), 100);
+			setTimeout(() => keyUpHandler(e), 150);
 			break;
 		case 'ArrowRight':
 		case 'd':
 			rightPressed = true;
-			setTimeout(() => keyUpHandler(e), 100);
+			setTimeout(() => keyUpHandler(e), 150);
 			break;
 		case 'a':
 		case 'ArrowLeft':
 			leftPressed = true;
-			setTimeout(() => keyUpHandler(e), 100);
+			setTimeout(() => keyUpHandler(e), 150);
 			break;
 	}
 }
