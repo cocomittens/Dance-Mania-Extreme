@@ -75,7 +75,6 @@ let song1 = [
     [left], [right], [down], [left, right]
 ];
 
-
 let song2 = [
     null, null, null, null,
     null, null, null, null,
@@ -141,11 +140,101 @@ let song2 = [
     [left], null, null, null
 ];
 
+let song3 = [
+    [], [], [], [],
+    [], [], [], [],
+    [up], [up], [up], [],
+    [down], [up], [down], [],
+    [left], [], [up], [],
+    [right], [down], [up], [],
+    [up], [up], [up], [],
+    [down], [down], [down], [],
+    [left], [up], [left], [],
+    [up], [down], [up], [],
+    [right], [], [up], [],
+    [down], [], [up], [],
+    [left], [up], [up], [],
+    [down], [up], [up], [],
+    [right], [], [down], [],
+    [up], [], [left], [],
+    [up], [down], [down], [],
+    [right], [left], [left], [],
+    [right, left], [], [], [],
+    [], [up], [down], [], 
+    [up], [], [up], [],
+    [down], [down], [down], [],
+    [left], [], [left], [],
+    [right], [up], [left, right], [left, up],
+    [], [up], [], [up],
+    [], [down], [down], [down],
+    [], [left], [], [left],
+    [right], [up], [down], [],
+    [up], [down], [up], [left],
+    [up], [down], [up], [],
+    [right], [down], [up], [down],
+    [left], [down], [up], [left, right],
+    [], [up], [down], [up],
+    [left], [up], [right], [],
+    [up], [down], [up], [left, right],
+    [up, down], [], [], [],
+    [up], [], [down], [],
+    [up], [up], [down], [],
+    [left], [right], [up, down], [], 
+    [right], [left], [up, down], [],
+    [right], [], [up], [],
+    [left], [down], [left], [],
+    [right], [up], [down], [up],
+    [down], [up], [left, right], [],
+    [up], [], [down], [],
+    [up], [down], [left], [down],
+    [up], [up], [left, right], [],
+    [down], [down], [left, right], [],
+    [up], [], [down], [],
+    [right], [up], [down], [up],
+    [down], [left, right], [up, down], [],
+    [up], [up], [down], [],
+    [up], [], [down], [],
+    [up], [right], [up], [down],
+    [up], [up], [left, right], [],
+    [down], [down], [left, right], [],
+    [up], [], [down], [],
+    [up], [left], [right], [up], 
+    [up], [up], [left, right], [],
+    [down], [down], [up], null,
+    [down], [down], [down], [up],
+    [down], [down], [down], null,
+    [right], [right], [right], [left],
+    [right], [right], [right], null,
+    [down], [down], [down], [up],
+    [down], [down], [down], null,
+    [left], [left], [left], [up],
+    [left], [left], [left], null,
+    [left, right], null, null, null,
+    null, null, null, null,
+    [up, down], null, [left, right], null,
+    [up], [down], [up], [left],
+    [up], null, [down], null,
+    [right], [up], down, null,
+    [up], null, [left], null,
+    [up], [down], [up], null,
+    [right], [right], [right], [right],
+    [left], [left], [right], null,
+    [up], [up], [up], [down],
+    [up], [left], [up], null,
+    [right], [right], [right], [down],
+    [up], [left], [up], null,
+    [up], [up], [up], [down],
+    [up], [left], [up], [left],
+    [up], [left], [up], [right, left]
+]
+
 export function getSong(songNum) {
     switch (songNum) {
 		case 1:
             return song1;
         case 2:
             return song2;
+        case 3:
+            return song3;
 	}
 }

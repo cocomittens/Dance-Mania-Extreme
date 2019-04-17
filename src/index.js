@@ -29,11 +29,15 @@ down_arrow_active.src = './sprites/arrow_down_active.png';
 let menu = document.getElementsByClassName('menuContainer')[0];
 let canvas = document.getElementsByClassName('canvasContainer')[0];
 let songSelect = document.getElementsByClassName('songsContainer')[0];
-let menuAudio = new Audio('./songs/bensound-popdance.mp3');
 let audio = new Audio("./songs/www.ogg");
 let song;
 let bpm;
-let active;
+let results = { 'Perfect': 0,
+'Great': 0,
+'OK': 0,
+'Bad': 0,
+'Miss': 0
+};
 
 document.getElementById('startBtn').addEventListener('click', function (event) {
     menu.style.display = 'none';
@@ -49,41 +53,78 @@ document.getElementById('startBtn').addEventListener('click', function (event) {
             setTimeout(() => drawNote(beat), i * bpm);
         }
     }
+    setTimeout(showResults, bpm * song.length);
 });
+
+const calculateGrade = results => {
+    let total = 0;
+    let weightedScore = 0;
+    total += results.Perfect;
+    total += results.Great;
+    total += results.OK;
+    total += results.Bad;
+    total += results.Miss;
+
+    weightedScore += results.Perfect;
+    weightedScore += results.Great * .8;
+    weightedScore += results.OK * .6;
+    weightedScore += results.Bad * .4;
+    
+    return weightedScore/total;
+}
+
+const showResults = () => {
+    let grade = calculateGrade(results);
+    canvas.style.display = 'none';
+    document.getElementById('stylesheet').href = './css/results.css';
+    document.getElementById('grade').innerHTML = grade;
+}
 
 document.getElementById('songBtn').addEventListener('click', function(event) {
 	menu.style.display = 'none';
     songSelect.style.display = 'block';
-    menuAudio.play();
 	document.getElementById('stylesheet').href = './css/songs.css';
 	document.addEventListener('keydown', scrollMenu(songsDownHandler, 400), false);
 	document.addEventListener('keydown', function(e) {
-		if (e.key === 'Enter') {
-            menuAudio.pause();
+        if (e.key === 'Enter') {
+            let play1, play2, play3, play4, play5;
 			menu.style.display = 'none';
-			document.getElementById('stylesheet').href = './css/styles.css';
-            active = document.getElementsByClassName('active')[0].classList.contains('c-3');
-            if (active) {
+            document.getElementById('stylesheet').href = './css/styles.css';
+            play1 = document.getElementsByClassName('active')[0].classList.contains('c-1');
+            play2 = document.getElementsByClassName('active')[0].classList.contains('c-2');
+            play3 = document.getElementsByClassName('active')[0].classList.contains('c-3');
+            play4 = document.getElementsByClassName('active')[0].classList.contains('c-4');
+            play5 = document.getElementsByClassName('active')[0].classList.contains('c-5');
+            if (play2) {
+                audio = new Audio('./songs/stepping_w.ogg');
+                body.style.backgroundImage = "url('./backgrounds/stepping_w_bg.png')";
+				bpm = 500;
+				song = getSong(3);
+            }
+            if (play3) {
                 audio = new Audio('./songs/ppp.mp3');
                 body.style.backgroundImage = "url('./backgrounds/ppp_bg.png')";
                 bpm = 375;
                 song = getSong(1);
-            } else {
+            } 
+            if (play4) {
                 audio = new Audio('./songs/www.ogg');
                 body.style.backgroundImage = `url('./backgrounds/www_bg.png')`;
-                bpm = 450;
+                bpm = 700;
                 song = getSong(2);
             }
             canvas.style.display = 'block';
 
 			audio.play();
-			drawNote([]);
+            drawNote([]);
 			for (let i = 0; i < song.length; i++) {
-				let beat = song[i];
+                let beat = song[i];
 				if (beat) {
-					setTimeout(() => drawNote(beat), i * bpm);
+                    setTimeout(() => drawNote(beat), i * bpm);
 				}
-			}
+            }
+            setTimeout(showResults, bpm * song.length);
+
 		}
 	});
 });
@@ -103,10 +144,22 @@ let progress = 150;
 let progressGradient;
 
 const calculateScore = (pixels) => {
-    if (pixels <= 30 && pixels >= 25) return 'Bad';
-    if (pixels <= 25 && pixels >= 20) return 'OK';
-    if (pixels <= 20 && pixels >= 10) return 'Good';
-    if (pixels <= 10) return 'Perfect!';
+    if (pixels <= 30 && pixels >= 25) {
+        results['Bad']++;
+        return 'Bad';
+    }
+    if (pixels <= 25 && pixels >= 20) {
+        results['OK']++;
+        return 'OK';
+    }
+    if (pixels <= 20 && pixels >= 10) {
+        results['Great']++;
+        return 'Good';
+    }
+    if (pixels <= 10) {
+        results['Perfect']++;
+        return 'Perfect!';
+    }
 }
 
 const drawNote = (beat) => {
@@ -182,6 +235,7 @@ const draw = (notes) => {
                 note.score = calculateScore(note.y);
             }
             if (note.y < 0 && !note.score) {
+                results['Miss']++;
                 note.score = 'Miss';
                 combo = 0;
             }

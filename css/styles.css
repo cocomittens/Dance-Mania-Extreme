@@ -73,6 +73,6 @@ body {
   height:0;
  }
 
-.wrapcircles {
+.songsContainer, .resultsContainer, .wrapcircles, #songInfo {
     display: none;
 }

@@ -1,7 +1,7 @@
 let songsList = ['c-1', 'c-2', 'c-3', 'c-4', 'c-5'];
 
 export function songsDownHandler(e) {
-    if (e.key === "ArrowLeft") {
+    if (e.key === "ArrowUp") {
         let foundActive = false;
         for (let i = 0; i < songsList.length; i++) {
 
@@ -31,7 +31,7 @@ export function songsDownHandler(e) {
     }
 
 
-    if (e.key === "ArrowRight") {
+    if (e.key === "ArrowDown") {
         let foundActive = false;
         for (let i = 0; i < songsList.length; i++) {
 
