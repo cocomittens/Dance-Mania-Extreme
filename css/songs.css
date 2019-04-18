@@ -28,11 +28,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   font-family: Helvetica;
   min-height: 200px;
   border: 1px solid black;
   border-radius: 10px;
   left: 20px;
+  font-size: 24px;
+  padding: 10px;
+}
+
+#songInfo span {
+  font-weight: bold;
 }
 
 body {

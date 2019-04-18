@@ -228,6 +228,81 @@ let song3 = [
     [up], [left], [up], [right, left]
 ]
 
+let song4 = [
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [left], [left, right], [down], [],
+    [up], [right], [left], [up],
+    [up, down], [], [left, right], [],
+    [right], [up], [left], [down],
+    [right], [left, right], [up], [],
+    [], [down], [right], [left],
+    [up], [], [left], [],
+    [down], [right], [up], [left],
+    [right], [], [], [right],
+    [left], [], [left], [],
+    [up], [], [], [up],
+    [down], [], [right], [left, right],
+    [left], [], [], [right],
+    [left], [], [up], [down],
+    [right], [], [right], [],
+    [left], [], [left], [down],
+    [left], [], [right], [up],
+    [right], [], [left], [],
+    [up], [], [up], [left],
+    [right], [], [down], [up],
+    [down], [], [down], [],
+    [down], [right], [left], [up],
+    [down], [], [down], [],
+    [right], [], [left], [left, right],
+    [down], [], [down], [up],
+    [right], [left], [right], [],
+    [left], [], [up], [],
+    [down], [], [right], [right],
+    [down], [], [left], [down],
+    [right], [left], [right], [down],
+    [up], [], [up], [],
+    [up], [], [up], [left],
+    [right], [right], [left], [left],
+    [left, right], [], [left], [],
+    [up], [up], [down], [down],
+    [up, down], [], [right], [left],
+    [down], [down], [left], [],
+    [right], [right], [down], [],
+    [up], [left], [up], [right],
+    [up], [down], [left], [right],
+    [left], [], [right], [right],
+    [left], [], [up], [up],
+    [down], [down], [up], [up],
+    [left], [right], [down], [],
+    [left, right], [], [up], [down],
+    [left], [], [up], [down],
+    [right], [], [up], [],
+    [left, right], [], [], [],
+    [up], [], [], [],
+    [], [], [], [],
+    [down], [], [], [],
+    [down], [], [right], [],
+    [left], [], [], [],
+    [], [], [], [],
+    [right], [], [], [],
+    [right], [right], [right], [right],
+    [left, right], [down], [left], [],
+    [right], [down], [left], [down],
+    [right], [up], [down], [left],
+    [right], [], [], [left],
+    [left, right], [down], [right], [],
+    [left], [down], [right], [down],
+    [up], [up], [down], [down],
+    [right], [up], [down], [left],
+    [left, right], [], [], []
+];
+
 export function getSong(songNum) {
     switch (songNum) {
 		case 1:
@@ -236,5 +311,7 @@ export function getSong(songNum) {
             return song2;
         case 3:
             return song3;
+        case 4:
+            return song4;
 	}
 }

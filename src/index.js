@@ -104,6 +104,12 @@ document.getElementById('songBtn').addEventListener('click', function(event) {
             play3 = document.getElementsByClassName('active')[0].classList.contains('c-3');
             play4 = document.getElementsByClassName('active')[0].classList.contains('c-4');
             play5 = document.getElementsByClassName('active')[0].classList.contains('c-5');
+            if (play1) {
+                audio = new Audio('./songs/lightclors.mp3');
+                body.style.backgroundImage = "url('./backgrounds/light-bg.png')";
+                bpm = 500;
+                song = getSong(4);
+            }
             if (play2) {
                 audio = new Audio('./songs/stepping_w.ogg');
                 body.style.backgroundImage = "url('./backgrounds/stepping_w_bg.png')";
@@ -230,7 +236,9 @@ const draw = (notes) => {
     }
 
     if(notes.length) {
+        let lastNote;
         notes.forEach(note => {
+            
             ctx.drawImage(note.img, note.x, note.y);
 
             if(note.x === 100 && !note.score && leftPressed) {
@@ -265,7 +273,11 @@ const draw = (notes) => {
             // Display score for 20 frames
             if (note.score && note.displayed <= 20) {
                 let score = new Image();
-                
+                if (!lastNote) lastNote = note;
+                if (lastNote.displayed >= note.displayed && lastNote !== note){
+                    lastNote.displayed = 21;
+                    lastNote = note;
+                }
                 switch (note.score) {
 					case 'Miss':
                         score.src = './sprites/miss.png';
