@@ -19,7 +19,7 @@ This is the first screen that players are greeted by. "Quick play" will take the
 ### Song Selection Menu
 Players can select a song and difficulty here, with the left/right and up/down arrows, respectively. They can then press "enter" to start the game with the selected options.
 
-![Song Selection Menu](https://i.imgur.com/MJ2tysE.jpg "Song Selection Menu")
+![Song Selection Menu](https://i.imgur.com/EioQ9FO.png "Song Selection Menu")
 
 ### Gameplay
 Players must hit the arrows at the right time in order to acheive a high score. Failure to do so will result in "Miss" ratings as seen here. Too many misses and the player will fail the song!
