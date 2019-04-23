@@ -31,12 +31,13 @@ let canvas = document.getElementsByClassName('canvasContainer')[0];
 let songSelect = document.getElementsByClassName('songsContainer')[0];
 let audio = new Audio("./songs/www.ogg");
 let song;
+let title;
 let bpm;
 let results = { 'Perfect': 0,
-'Great': 0,
-'OK': 0,
-'Bad': 0,
-'Miss': 0
+    'Great': 0,
+    'OK': 0,
+    'Bad': 0,
+    'Miss': 0
 };
 
 document.getElementById('startBtn').addEventListener('click', function (event) {
@@ -46,6 +47,7 @@ document.getElementById('startBtn').addEventListener('click', function (event) {
     audio.play();
     song = getSong(2);
     bpm = 700;
+    title = 'White Wind World';
     drawNote([]);
     for (let i = 0; i < song.length; i++) {
         let beat = song[i];
@@ -54,6 +56,14 @@ document.getElementById('startBtn').addEventListener('click', function (event) {
         }
     }
     setTimeout(showResults, bpm * song.length);
+});
+
+document.getElementById('songBtn').addEventListener('click', function (event) {
+    songsMenu();
+});
+
+document.getElementById('songBtnResults').addEventListener('click', function (event) {
+    songsMenu();
 });
 
 const calculateGrade = results => {
@@ -79,7 +89,6 @@ const calculateGrade = results => {
     if (percentage >= 86 && percentage < 93) return 'A';
     if (percentage >= 93 && percentage < 96) return 'S';
     if (percentage >= 96) return 'SS';
-
 }
 
 const showResults = () => {
@@ -87,17 +96,20 @@ const showResults = () => {
     canvas.style.display = 'none';
     document.getElementById('stylesheet').href = './css/results.css';
     document.getElementById('grade').innerHTML = grade;
+    document.getElementById('title').innerHTML = title;
 }
 
-document.getElementById('songBtn').addEventListener('click', function(event) {
-	menu.style.display = 'none';
+const songsMenu = () => {
+    audio.pause();
+    menu.style.display = 'none';
+    canvas.style.display = 'none';
     songSelect.style.display = 'block';
-	document.getElementById('stylesheet').href = './css/songs.css';
-	document.addEventListener('keydown', scrollMenu(songsDownHandler, 400), false);
-	document.addEventListener('keydown', function(e) {
+    document.getElementById('stylesheet').href = './css/songs.css';
+    document.addEventListener('keydown', scrollMenu(songsDownHandler, 400), false);
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
             let play1, play2, play3, play4, play5;
-			menu.style.display = 'none';
+            menu.style.display = 'none';
             document.getElementById('stylesheet').href = './css/styles.css';
             play1 = document.getElementsByClassName('active')[0].classList.contains('c-1');
             play2 = document.getElementsByClassName('active')[0].classList.contains('c-2');
@@ -108,41 +120,52 @@ document.getElementById('songBtn').addEventListener('click', function(event) {
                 audio = new Audio('./songs/lightclors.mp3');
                 body.style.backgroundImage = "url('./backgrounds/light-bg.png')";
                 bpm = 500;
+                title = 'Light Colors';
                 song = getSong(4);
             }
             if (play2) {
                 audio = new Audio('./songs/stepping_w.ogg');
                 body.style.backgroundImage = "url('./backgrounds/stepping_w_bg.png')";
-				bpm = 500;
-				song = getSong(3);
+                bpm = 500;
+                title = 'Stepping Wind';
+                song = getSong(3);
             }
             if (play3) {
                 audio = new Audio('./songs/ppp.mp3');
                 body.style.backgroundImage = "url('./backgrounds/ppp_bg.png')";
                 bpm = 375;
+                title = ('Pop Pop Poppet');
                 song = getSong(1);
-            } 
+            }
             if (play4) {
                 audio = new Audio('./songs/www.ogg');
                 body.style.backgroundImage = `url('./backgrounds/www_bg.png')`;
                 bpm = 700;
+                title = ('White Wind World');
                 song = getSong(2);
+            }
+            if (play5) {
+                audio = new Audio('./songs/iris.mp3');
+                body.style.backgroundImage = `url('./backgrounds/iris-bg.jpg')`;
+                bpm = 700;
+                title = ('Tears of Iris');
+                song = getSong(5);
             }
             canvas.style.display = 'block';
 
-			audio.play();
+            audio.play();
             drawNote([]);
-			for (let i = 0; i < song.length; i++) {
+            for (let i = 0; i < song.length; i++) {
                 let beat = song[i];
-				if (beat) {
+                if (beat) {
                     setTimeout(() => drawNote(beat), i * bpm);
-				}
+                }
             }
             setTimeout(showResults, bpm * song.length);
 
-		}
-	});
-});
+        }
+    });
+}
 
 /* Rendering */
 

@@ -1,4 +1,5 @@
 let songsList = ['c-1', 'c-2', 'c-3', 'c-4', 'c-5'];
+let infoList = ['i-1', 'i-2', 'i-3', 'i-4', 'i-5'];
 
 export function songsDownHandler(e) {
     if (e.key === "ArrowUp") {
@@ -7,6 +8,8 @@ export function songsDownHandler(e) {
 
             let curr = document.getElementsByClassName(songsList[i])[0];
             let next = document.getElementsByClassName(songsList[i + 1])[0];
+            let currInfo = document.getElementsByClassName(infoList[i])[0];
+            let nextInfo = document.getElementsByClassName(infoList[i + 1])[0];
 
             let currPos = window.getComputedStyle(curr, null).getPropertyValue("transform");
             var values = currPos.split('(')[1],
@@ -24,10 +27,14 @@ export function songsDownHandler(e) {
                 foundActive = true;
                 curr.classList.remove('active');
                 next.classList.add('active');
+                currInfo.classList.remove('i-active');
+                nextInfo.classList.add('i-active');
             }
 
         }
         songsList.push(songsList.shift());
+        infoList.push(infoList.shift());
+
     }
 
 
@@ -37,7 +44,8 @@ export function songsDownHandler(e) {
 
             let curr = document.getElementsByClassName(songsList[i])[0];
             let next = document.getElementsByClassName(songsList[i - 1])[0];
-
+            let currInfo = document.getElementsByClassName(infoList[i])[0];
+            let nextInfo = document.getElementsByClassName(infoList[i - 1])[0];
             let currPos = window.getComputedStyle(curr, null).getPropertyValue("transform");
             var values = currPos.split('(')[1],
                 values = values.split(')')[0],
@@ -48,6 +56,8 @@ export function songsDownHandler(e) {
                 foundActive = true;
                 curr.classList.remove('active');
                 next.classList.add('active');
+                currInfo.classList.remove('i-active');
+                nextInfo.classList.add('i-active');
             }
 
             if (i === 4) curr.style.transform = `translate(${60}px, ${160}px)`;
@@ -58,6 +68,7 @@ export function songsDownHandler(e) {
             }
         }
         songsList.unshift(songsList.pop());
+        infoList.unshift(infoList.pop());
     }
 }
 
