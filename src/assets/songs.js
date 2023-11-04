@@ -1,12 +1,14 @@
+import { ARROW_DOWN_SRC, ARROW_RIGHT_SRC, ARROW_LEFT_SRC, ARROW_UP_SRC  } from "./constants";
+
 let right = new Image();
 let left = new Image();
 let up = new Image();
 let down = new Image();
 
-right.src = './sprites/arrow_right_note.png';
-left.src = './sprites/arrow_left_note.png';
-up.src = './sprites/arrow_up_note.png';
-down.src = './sprites/arrow_down_note.png';
+right.src = ARROW_RIGHT_SRC;
+left.src = ARROW_LEFT_SRC;
+up.src = ARROW_UP_SRC;
+down.src = ARROW_DOWN_SRC;
 
 let song1 = [
     null, null, null, null,

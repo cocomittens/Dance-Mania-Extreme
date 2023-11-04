@@ -1,5 +1,4 @@
-let songsList = ['c-1', 'c-2', 'c-3', 'c-4', 'c-5'];
-let infoList = ['i-1', 'i-2', 'i-3', 'i-4', 'i-5'];
+import { songsList, infoList } from "../assets/constants";
 
 export function songsDownHandler(e) {
     if (e.key === "ArrowUp") {
