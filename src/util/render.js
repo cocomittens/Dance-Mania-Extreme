@@ -1,3 +1,5 @@
+import { upPressed, downPressed, rightPressed, leftPressed } from './controls.js';
+import { ARROW_DOWN_SRC, ARROW_RIGHT_SRC, ARROW_LEFT_SRC, ARROW_UP_SRC, ARROW_DOWN_ACTIVE_SRC, ARROW_LEFT_ACTIVE_SRC, ARROW_RIGHT_ACTIVE_SRC, ARROW_UP_ACTIVE_SRC } from "./constants";
 
 let dx = 10;
 let ctx;
@@ -10,6 +12,26 @@ let y = 600; // vertical offset
 let run;
 let progress = 150;
 let progressGradient;
+
+let right_arrow = new Image();
+let left_arrow = new Image();
+let up_arrow = new Image();
+let down_arrow = new Image();
+
+let right_arrow_active = new Image();
+let left_arrow_active = new Image();
+let up_arrow_active = new Image();
+let down_arrow_active = new Image();
+
+right_arrow.src = ARROW_RIGHT_SRC;
+left_arrow.src = ARROW_LEFT_SRC;
+up_arrow.src = ARROW_UP_SRC;
+down_arrow.src = ARROW_DOWN_SRC;
+
+right_arrow_active.src = ARROW_RIGHT_ACTIVE_SRC;
+left_arrow_active.src = ARROW_LEFT_ACTIVE_SRC;
+up_arrow_active.src = ARROW_UP_ACTIVE_SRC;
+down_arrow_active.src = ARROW_DOWN_ACTIVE_SRC;
 
 export const calculateScore = (pixels) => {
     if (pixels <= 30 && pixels >= 25) {

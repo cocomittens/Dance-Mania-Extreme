@@ -1,4 +1,3 @@
-import { songsDownHandler, scrollMenu } from './util/menu.js';
 import { getSong } from './assets/songs.js';
 import { draw, drawNote } from './util/render.js';
 import { songsMenu } from './scenes/menu.js';
@@ -6,26 +5,6 @@ import { calculateGrade, showResults } from './scenes/results.js';
 
 const body = document.getElementsByTagName('body')[0];
 let id;
-
-let right_arrow = new Image();
-let left_arrow = new Image();
-let up_arrow = new Image();
-let down_arrow = new Image();
-
-right_arrow.src = './sprites/arrow_right.png';
-left_arrow.src = './sprites/arrow_left.png';
-up_arrow.src = './sprites/arrow_up.png';
-down_arrow.src = './sprites/arrow_down.png';
-
-let right_arrow_active = new Image();
-let left_arrow_active = new Image();
-let up_arrow_active = new Image();
-let down_arrow_active = new Image();
-
-right_arrow_active.src = './sprites/arrow_right_active.png';
-left_arrow_active.src = './sprites/arrow_left_active.png';
-up_arrow_active.src = './sprites/arrow_up_active.png';
-down_arrow_active.src = './sprites/arrow_down_active.png';
 
 /* Main menu buttons */
 
