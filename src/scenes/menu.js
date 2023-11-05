@@ -1,67 +1,62 @@
+let menu = document.getElementsByClassName('menuContainer')[0];
+let canvas = document.getElementsByClassName('canvasContainer')[0];
+let songSelect = document.getElementsByClassName('songsContainer')[0];
+const body = document.body; 
+let audio, bpm, title, song;
+
+function startGame(backgroundImage, songFile, bpmValue, titleValue, songIndex) {
+    menu.style.display = 'none';
+    body.style.backgroundImage = `url('${backgroundImage}')`;
+    audio = new Audio(songFile);
+    bpm = bpmValue;
+    title = titleValue;
+    song = getSong(songIndex);
+    canvas.style.display = 'block';
+    
+    audio.play();
+    drawNote([]);
+    song.forEach((beat, index) => {
+        if (beat) {
+            setTimeout(() => drawNote(beat), index * bpm);
+        }
+    });
+    setTimeout(showResults, bpm * song.length);
+}
+
+function quickplayHandler(e) {
+    startGame('./backgrounds/www_bg.png', './songs/www.ogg', 700, 'White Wind World', 2);
+}
+
+function menuKeydownHandler(e) {
+    if (e.key === 'Enter') {
+        let activeClass = document.getElementsByClassName('active')[0].className;
+        if (activeClass.includes('c-1')) {
+            startGame('./backgrounds/light-bg.png', './songs/lightclors.mp3', 500, 'Light Colors', 4);
+        } else if (activeClass.includes('c-2')) {
+            startGame('./backgrounds/stepping_w_bg.png', './songs/stepping_w.ogg', 500, 'Stepping Wind', 3);
+        } else if (activeClass.includes('c-3')) {
+            startGame('./backgrounds/ppp_bg.png', './songs/ppp.mp3', 375, 'Pop Pop Poppet', 1);
+        } else if (activeClass.includes('c-4')) {
+            startGame('./backgrounds/www_bg.png', './songs/www.ogg', 700, 'White Wind World', 2);
+        } else if (activeClass.includes('c-5')) {
+            startGame('./backgrounds/iris-bg.jpg', './songs/iris.mp3', 700, 'Tears of Iris', 5);
+        }
+    }
+}
+
 export const songsMenu = () => {
-    audio.pause();
+    if (audio) audio.pause();
     menu.style.display = 'none';
     canvas.style.display = 'none';
     songSelect.style.display = 'block';
     document.getElementById('stylesheet').href = './css/songs.css';
+
+    const startButton = document.getElementById('startBtn');
+    startButton.removeEventListener('click', quickplayHandler);
+    startButton.addEventListener('click', quickplayHandler);
+
+    document.removeEventListener('keydown', scrollMenu(songsDownHandler, 400));
     document.addEventListener('keydown', scrollMenu(songsDownHandler, 400), false);
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-            let play1, play2, play3, play4, play5;
-            menu.style.display = 'none';
-            document.getElementById('stylesheet').href = './css/styles.css';
-            play1 = document.getElementsByClassName('active')[0].classList.contains('c-1');
-            play2 = document.getElementsByClassName('active')[0].classList.contains('c-2');
-            play3 = document.getElementsByClassName('active')[0].classList.contains('c-3');
-            play4 = document.getElementsByClassName('active')[0].classList.contains('c-4');
-            play5 = document.getElementsByClassName('active')[0].classList.contains('c-5');
-            if (play1) {
-                audio = new Audio('./songs/lightclors.mp3');
-                body.style.backgroundImage = "url('./backgrounds/light-bg.png')";
-                bpm = 500;
-                title = 'Light Colors';
-                song = getSong(4);
-            }
-            if (play2) {
-                audio = new Audio('./songs/stepping_w.ogg');
-                body.style.backgroundImage = "url('./backgrounds/stepping_w_bg.png')";
-                bpm = 500;
-                title = 'Stepping Wind';
-                song = getSong(3);
-            }
-            if (play3) {
-                audio = new Audio('./songs/ppp.mp3');
-                body.style.backgroundImage = "url('./backgrounds/ppp_bg.png')";
-                bpm = 375;
-                title = ('Pop Pop Poppet');
-                song = getSong(1);
-            }
-            if (play4) {
-                audio = new Audio('./songs/www.ogg');
-                body.style.backgroundImage = `url('./backgrounds/www_bg.png')`;
-                bpm = 700;
-                title = ('White Wind World');
-                song = getSong(2);
-            }
-            if (play5) {
-                audio = new Audio('./songs/iris.mp3');
-                body.style.backgroundImage = `url('./backgrounds/iris-bg.jpg')`;
-                bpm = 700;
-                title = ('Tears of Iris');
-                song = getSong(5);
-            }
-            canvas.style.display = 'block';
-
-            audio.play();
-            drawNote([]);
-            for (let i = 0; i < song.length; i++) {
-                let beat = song[i];
-                if (beat) {
-                    setTimeout(() => drawNote(beat), i * bpm);
-                }
-            }
-            setTimeout(showResults, bpm * song.length);
-
-        }
-    });
+    document.removeEventListener('keydown', menuKeydownHandler);
+    document.addEventListener('keydown', menuKeydownHandler, false);
 }

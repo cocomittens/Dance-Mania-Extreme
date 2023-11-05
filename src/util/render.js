@@ -33,6 +33,13 @@ left_arrow_active.src = ARROW_LEFT_ACTIVE_SRC;
 up_arrow_active.src = ARROW_UP_ACTIVE_SRC;
 down_arrow_active.src = ARROW_DOWN_ACTIVE_SRC;
 
+let results = { 'Perfect': 0,
+    'Great': 0,
+    'OK': 0,
+    'Bad': 0,
+    'Miss': 0
+};
+
 export const calculateScore = (pixels) => {
     if (pixels <= 30 && pixels >= 25) {
         results['Bad']++;

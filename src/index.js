@@ -1,8 +1,8 @@
 import { getSong } from './assets/songs.js';
 import { draw, drawNote } from './util/render.js';
 import { songsMenu } from './scenes/menu.js';
-import { calculateGrade, showResults } from './scenes/results.js';
-
+import { showResults } from './scenes/results.js';
+import { keyDownHandler, keyUpHandler } from './util/eventhandlers.js';
 const body = document.getElementsByTagName('body')[0];
 let id;
 
@@ -15,12 +15,6 @@ let audio = new Audio("./songs/www.ogg");
 let song;
 let title;
 let bpm;
-let results = { 'Perfect': 0,
-    'Great': 0,
-    'OK': 0,
-    'Bad': 0,
-    'Miss': 0
-};
 
 document.getElementById('startBtn').addEventListener('click', function (event) {
     menu.style.display = 'none';
