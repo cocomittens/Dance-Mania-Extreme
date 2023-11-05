@@ -1,5 +1,5 @@
-import { songsMenu } from './utils.js';
-import GameController from './gameController.js';
+import { songsMenu } from './scenes/menu.js';
+import GameController from './util/gameController.js';
 
 const gameController = new GameController();
 gameController.start(); // To start the game loop

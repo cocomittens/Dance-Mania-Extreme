@@ -1,4 +1,4 @@
-import { getSong } from '../songs/songs';
+import { getSong } from '../assets/songs';
 import { showResults } from './results';
 
 let menu = document.getElementsByClassName('menuContainer')[0];
